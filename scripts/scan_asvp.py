@@ -61,6 +61,7 @@ def download_zip_to_tempfile() -> Path:
             response.raise_for_status()
 
             total = 0
+
             for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
                 if not chunk:
                     continue
@@ -72,6 +73,7 @@ def download_zip_to_tempfile() -> Path:
                     print(f"Downloaded: {total / 1024 / 1024:.1f} MB")
 
         temp.close()
+
         print(f"Download complete: {temp_path.stat().st_size / 1024 / 1024:.1f} MB")
         return temp_path
 
@@ -206,54 +208,67 @@ def scan_csv_from_zip(zip_path: Path, watch: dict[str, Any]) -> dict[str, Any]:
     records: dict[str, dict[str, Any]] = {}
     rows_scanned = 0
     csv_file_name = None
+    warnings: list[str] = []
 
-    with zipfile.ZipFile(zip_path) as zf:
-        csv_names = [name for name in zf.namelist() if name.lower().endswith(".csv")]
+    try:
+        with zipfile.ZipFile(zip_path) as zf:
+            csv_names = [
+                name for name in zf.namelist()
+                if name.lower().endswith(".csv")
+            ]
 
-        if not csv_names:
-            raise RuntimeError("No CSV files found inside ZIP")
+            if not csv_names:
+                raise RuntimeError("No CSV files found inside ZIP")
 
-        csv_file_name = csv_names[0]
-        print(f"CSV file: {csv_file_name}")
+            csv_file_name = csv_names[0]
+            print(f"CSV file: {csv_file_name}")
 
-        with zf.open(csv_file_name) as raw_file:
-            text_stream = io.TextIOWrapper(
-                raw_file,
-                encoding=ENCODING,
-                newline="",
-                errors="replace",
-            )
+            with zf.open(csv_file_name) as raw_file:
+                text_stream = io.TextIOWrapper(
+                    raw_file,
+                    encoding=ENCODING,
+                    newline="",
+                    errors="replace",
+                )
 
-            dialect = detect_dialect(text_stream)
-            reader = csv.reader(text_stream, dialect=dialect)
+                dialect = detect_dialect(text_stream)
+                reader = csv.reader(text_stream, dialect=dialect)
 
-            headers = next(reader)
-            idx = build_indexes(headers)
+                headers = next(reader)
+                idx = build_indexes(headers)
 
-            print(f"Headers: {headers}")
+                print(f"Headers: {headers}")
 
-            for row in reader:
-                rows_scanned += 1
+                for row in reader:
+                    rows_scanned += 1
 
-                if len(row) < len(headers):
-                    continue
+                    if len(row) < len(headers):
+                        continue
 
-                matches = find_matches(row, idx, watch)
+                    matches = find_matches(row, idx, watch)
 
-                for subject, role in matches:
-                    record = make_record(
-                        row=row,
-                        idx=idx,
-                        subject=subject,
-                        role=role,
-                    )
-                    records[record["match_key"]] = record
+                    for subject, role in matches:
+                        record = make_record(
+                            row=row,
+                            idx=idx,
+                            subject=subject,
+                            role=role,
+                        )
+                        records[record["match_key"]] = record
 
-                if rows_scanned % 1_000_000 == 0:
-                    print(
-                        f"Rows scanned: {rows_scanned:,}; "
-                        f"matched records: {len(records):,}"
-                    )
+                    if rows_scanned % 1_000_000 == 0:
+                        print(
+                            f"Rows scanned: {rows_scanned:,}; "
+                            f"matched records: {len(records):,}"
+                        )
+
+    except zipfile.BadZipFile as exc:
+        warning = (
+            f"ZIP CRC error after scanning {rows_scanned:,} rows. "
+            f"Partial snapshot saved. Error: {exc}"
+        )
+        print(f"WARNING: {warning}")
+        warnings.append(warning)
 
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -261,6 +276,8 @@ def scan_csv_from_zip(zip_path: Path, watch: dict[str, Any]) -> dict[str, Any]:
         "csv_file_name": csv_file_name,
         "rows_scanned": rows_scanned,
         "matched_records_total": len(records),
+        "is_partial": bool(warnings),
+        "warnings": warnings,
         "records": sorted(
             records.values(),
             key=lambda item: (
@@ -286,6 +303,12 @@ def main() -> None:
         snapshot = scan_csv_from_zip(zip_path, watch)
         save_json(OUTPUT_PATH, snapshot)
         print(f"Saved current snapshot: {OUTPUT_PATH}")
+        print(f"Rows scanned: {snapshot['rows_scanned']:,}")
+        print(f"Matched records: {snapshot['matched_records_total']:,}")
+
+        if snapshot.get("is_partial"):
+            print("WARNING: Snapshot is partial")
+
     finally:
         zip_path.unlink(missing_ok=True)
         print("Temporary ZIP removed")
