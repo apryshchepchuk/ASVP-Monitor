@@ -1,0 +1,55 @@
+name: ASVP Daily Monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 4 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asvp-monitor-daily
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run ASVP scan
+        run: |
+          python scripts/scan_asvp.py
+
+      - name: Commit data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add data/current.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update ASVP snapshot"
+            git push
+          fi
+
+      - name: Upload current snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: asvp-current
+          path: data/current.json
