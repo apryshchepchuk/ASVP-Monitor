@@ -10,8 +10,14 @@ from typing import Any
 
 import requests
 
-from common import CONFIG_DIR, DATA_DIR, load_json, normalize_code, normalize_text, save_json
-
+from common import (
+    CONFIG_DIR,
+    DATA_DIR,
+    load_json,
+    normalize_code,
+    normalize_text,
+    save_json,
+)
 
 ZIP_URL = (
     "https://data.gov.ua/dataset/"
@@ -25,7 +31,6 @@ OUTPUT_PATH = DATA_DIR / "current.json"
 
 ENCODING = "cp1251"
 CHUNK_SIZE = 1024 * 1024 * 8
-MAX_ATTEMPTS = 3
 
 REQUIRED_COLUMNS = [
     "DEBTOR_NAME",
@@ -51,11 +56,11 @@ class SemicolonDialect(csv.Dialect):
     quoting = csv.QUOTE_MINIMAL
 
 
-def download_zip_to_tempfile(attempt: int) -> Path:
+def download_zip_to_tempfile() -> Path:
     temp = tempfile.NamedTemporaryFile(delete=False, suffix=".zip")
     temp_path = Path(temp.name)
 
-    print(f"Attempt {attempt}: downloading ASVP ZIP to: {temp_path}")
+    print(f"Downloading ASVP ZIP to: {temp_path}")
 
     try:
         with requests.get(ZIP_URL, stream=True, timeout=600) as response:
@@ -74,6 +79,7 @@ def download_zip_to_tempfile(attempt: int) -> Path:
                     print(f"Downloaded: {total / 1024 / 1024:.1f} MB")
 
         temp.close()
+
         print(f"Download complete: {temp_path.stat().st_size / 1024 / 1024:.1f} MB")
         return temp_path
 
@@ -95,6 +101,7 @@ def detect_dialect(text_stream: io.TextIOWrapper) -> csv.Dialect:
         dialect = csv.Sniffer().sniff(sample, delimiters=";,|\t,")
         print(f"Detected delimiter: {repr(dialect.delimiter)}")
         return dialect
+
     except csv.Error:
         print("Could not detect CSV delimiter. Falling back to semicolon delimiter.")
         return SemicolonDialect
@@ -102,12 +109,16 @@ def detect_dialect(text_stream: io.TextIOWrapper) -> csv.Dialect:
 
 def build_indexes(headers: list[str]) -> dict[str, int]:
     index_by_name = {name: idx for idx, name in enumerate(headers)}
+
     missing = [col for col in REQUIRED_COLUMNS if col not in index_by_name]
 
     if missing:
         raise RuntimeError(f"Missing required columns: {missing}")
 
-    return {col: index_by_name[col] for col in REQUIRED_COLUMNS}
+    return {
+        col: index_by_name[col]
+        for col in REQUIRED_COLUMNS
+    }
 
 
 def build_watch_indexes(watchlist: dict[str, Any]) -> dict[str, Any]:
@@ -127,10 +138,16 @@ def build_watch_indexes(watchlist: dict[str, Any]) -> dict[str, Any]:
         }
 
         if subject_type == "company" and normalized["code_norm"]:
-            companies_by_code.setdefault(normalized["code_norm"], []).append(normalized)
+            companies_by_code.setdefault(
+                normalized["code_norm"],
+                [],
+            ).append(normalized)
 
         if subject_type == "person" and normalized["name_norm"]:
-            persons_by_name.setdefault(normalized["name_norm"], []).append(normalized)
+            persons_by_name.setdefault(
+                normalized["name_norm"],
+                [],
+            ).append(normalized)
 
     return {
         "companies_by_code": companies_by_code,
@@ -177,7 +194,10 @@ def find_matches(
 
     debtor_name = normalize_text(row[idx["DEBTOR_NAME"]])
     creditor_name = normalize_text(row[idx["CREDITOR_NAME"]])
-    debtor_birthdate = str(row[idx["DEBTOR_BIRTHDATE"]] or "").strip()
+
+    debtor_birthdate = str(
+        row[idx["DEBTOR_BIRTHDATE"]] or ""
+    ).strip()
 
     for subject in watch["companies_by_code"].get(debtor_code, []):
         if "debtor" in subject["roles"]:
@@ -192,6 +212,7 @@ def find_matches(
             continue
 
         expected_birthdate = subject.get("birthdate_norm")
+
         if expected_birthdate and expected_birthdate != debtor_birthdate:
             continue
 
@@ -204,8 +225,12 @@ def find_matches(
     return matches
 
 
-def scan_csv_from_zip(zip_path: Path, watch: dict[str, Any], attempt: int) -> dict[str, Any]:
+def scan_csv_from_zip(
+    zip_path: Path,
+    watch: dict[str, Any],
+) -> dict[str, Any]:
     records: dict[str, dict[str, Any]] = {}
+
     rows_scanned = 0
     csv_file_name = None
     warnings: list[str] = []
@@ -213,7 +238,8 @@ def scan_csv_from_zip(zip_path: Path, watch: dict[str, Any], attempt: int) -> di
     try:
         with zipfile.ZipFile(zip_path) as zf:
             csv_names = [
-                name for name in zf.namelist()
+                name
+                for name in zf.namelist()
                 if name.lower().endswith(".csv")
             ]
 
@@ -221,6 +247,7 @@ def scan_csv_from_zip(zip_path: Path, watch: dict[str, Any], attempt: int) -> di
                 raise RuntimeError("No CSV files found inside ZIP")
 
             csv_file_name = csv_names[0]
+
             print(f"CSV file: {csv_file_name}")
 
             with zf.open(csv_file_name) as raw_file:
@@ -232,7 +259,11 @@ def scan_csv_from_zip(zip_path: Path, watch: dict[str, Any], attempt: int) -> di
                 )
 
                 dialect = detect_dialect(text_stream)
-                reader = csv.reader(text_stream, dialect=dialect)
+
+                reader = csv.reader(
+                    text_stream,
+                    dialect=dialect,
+                )
 
                 headers = next(reader)
                 idx = build_indexes(headers)
@@ -254,6 +285,7 @@ def scan_csv_from_zip(zip_path: Path, watch: dict[str, Any], attempt: int) -> di
                             subject=subject,
                             role=role,
                         )
+
                         records[record["match_key"]] = record
 
                     if rows_scanned % 1_000_000 == 0:
@@ -264,17 +296,18 @@ def scan_csv_from_zip(zip_path: Path, watch: dict[str, Any], attempt: int) -> di
 
     except zipfile.BadZipFile as exc:
         warning = (
-            f"Attempt {attempt}: ZIP CRC error after scanning {rows_scanned:,} rows. "
-            f"Partial snapshot produced. Error: {exc}"
+            f"ZIP CRC error after scanning "
+            f"{rows_scanned:,} rows. "
+            f"Partial snapshot saved. "
+            f"Error: {exc}"
         )
+
         print(f"WARNING: {warning}")
         warnings.append(warning)
 
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "source_url": ZIP_URL,
-        "attempt": attempt,
-        "max_attempts": MAX_ATTEMPTS,
         "csv_file_name": csv_file_name,
         "rows_scanned": rows_scanned,
         "matched_records_total": len(records),
@@ -291,28 +324,6 @@ def scan_csv_from_zip(zip_path: Path, watch: dict[str, Any], attempt: int) -> di
     }
 
 
-def run_attempt(watch: dict[str, Any], attempt: int) -> dict[str, Any]:
-    zip_path = download_zip_to_tempfile(attempt)
-
-    try:
-        return scan_csv_from_zip(zip_path, watch, attempt)
-    finally:
-        zip_path.unlink(missing_ok=True)
-        print("Temporary ZIP removed")
-
-
-def select_best_snapshot(snapshots: list[dict[str, Any]]) -> dict[str, Any]:
-    full_snapshots = [snapshot for snapshot in snapshots if not snapshot.get("is_partial")]
-
-    if full_snapshots:
-        return full_snapshots[-1]
-
-    return max(
-        snapshots,
-        key=lambda snapshot: int(snapshot.get("rows_scanned") or 0),
-    )
-
-
 def main() -> None:
     watchlist = load_json(WATCHLIST_PATH)
     watch = build_watch_indexes(watchlist)
@@ -321,38 +332,24 @@ def main() -> None:
     print(f"Company codes: {len(watch['companies_by_code'])}")
     print(f"Person names: {len(watch['persons_by_name'])}")
 
-    snapshots: list[dict[str, Any]] = []
+    zip_path = download_zip_to_tempfile()
 
-    for attempt in range(1, MAX_ATTEMPTS + 1):
-        print(f"Starting attempt {attempt}/{MAX_ATTEMPTS}")
-
-        snapshot = run_attempt(watch, attempt)
-        snapshots.append(snapshot)
-
-        print(f"Attempt {attempt} rows scanned: {snapshot['rows_scanned']:,}")
-        print(f"Attempt {attempt} matched records: {snapshot['matched_records_total']:,}")
-        print(f"Attempt {attempt} partial: {snapshot.get('is_partial')}")
-
-        if not snapshot.get("is_partial"):
-            print("Full snapshot created successfully. No more attempts needed.")
-            break
-
-        if attempt < MAX_ATTEMPTS:
-            print("Snapshot is partial. Retrying download and scan...")
-
-    best_snapshot = select_best_snapshot(snapshots)
-
-    if best_snapshot.get("is_partial"):
-        best_snapshot.setdefault("warnings", []).append(
-            "All attempts produced partial snapshots. Saved the best partial result."
+    try:
+        snapshot = scan_csv_from_zip(
+            zip_path=zip_path,
+            watch=watch,
         )
 
-    save_json(OUTPUT_PATH, best_snapshot)
+        save_json(OUTPUT_PATH, snapshot)
 
-    print(f"Saved current snapshot: {OUTPUT_PATH}")
-    print(f"Best rows scanned: {best_snapshot['rows_scanned']:,}")
-    print(f"Best matched records: {best_snapshot['matched_records_total']:,}")
-    print(f"Best snapshot partial: {best_snapshot.get('is_partial')}")
+        print(f"Saved current snapshot: {OUTPUT_PATH}")
+        print(f"Rows scanned: {snapshot['rows_scanned']:,}")
+        print(f"Matched records: {snapshot['matched_records_total']:,}")
+        print(f"Partial snapshot: {snapshot['is_partial']}")
+
+    finally:
+        zip_path.unlink(missing_ok=True)
+        print("Temporary ZIP removed")
 
 
 if __name__ == "__main__":
