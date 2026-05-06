@@ -19,8 +19,14 @@ OUTPUT_PATH = Path("samples/asvp_sample.json")
 MAX_ROWS = 100
 
 
-class SemicolonDialect(csv.excel):
+class SemicolonDialect(csv.Dialect):
     delimiter = ";"
+    quotechar = '"'
+    escapechar = None
+    doublequote = True
+    skipinitialspace = False
+    lineterminator = "\n"
+    quoting = csv.QUOTE_MINIMAL
 
 
 def download_zip() -> bytes:
@@ -51,4 +57,86 @@ def detect_dialect(text_stream: io.TextIOWrapper) -> csv.Dialect:
         print(f"Detected delimiter: {repr(dialect.delimiter)}")
         return dialect
     except csv.Error:
-        print("Could not detect CSV delimiter
+        print("Could not detect CSV delimiter. Falling back to semicolon delimiter.")
+        return SemicolonDialect
+
+
+def inspect_zip(zip_bytes: bytes) -> dict:
+    result = {
+        "zip_files_total": 0,
+        "csv_files_total": 0,
+        "files": [],
+    }
+
+    with zipfile.ZipFile(io.BytesIO(zip_bytes)) as zf:
+        names = zf.namelist()
+        result["zip_files_total"] = len(names)
+
+        print(f"Files inside ZIP: {len(names)}")
+
+        for name in names:
+            print(f"Found in ZIP: {name}")
+
+            if not name.lower().endswith(".csv"):
+                continue
+
+            print(f"Inspecting CSV: {name}")
+            result["csv_files_total"] += 1
+
+            file_info = {
+                "file_name": name,
+                "headers": [],
+                "delimiter": None,
+                "sample_rows": [],
+                "sample_rows_count": 0,
+                "encoding": "cp1251",
+                "decode_errors": "replace",
+            }
+
+            with zf.open(name) as raw_file:
+                text_stream = io.TextIOWrapper(
+                    raw_file,
+                    encoding="cp1251",
+                    newline="",
+                    errors="replace",
+                )
+
+                dialect = detect_dialect(text_stream)
+                file_info["delimiter"] = dialect.delimiter
+
+                reader = csv.DictReader(
+                    text_stream,
+                    dialect=dialect,
+                )
+
+                file_info["headers"] = reader.fieldnames or []
+
+                for index, row in enumerate(reader):
+                    if index >= MAX_ROWS:
+                        break
+
+                    file_info["sample_rows"].append(row)
+
+                file_info["sample_rows_count"] = len(file_info["sample_rows"])
+
+            result["files"].append(file_info)
+
+    return result
+
+
+def main() -> None:
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    zip_bytes = download_zip()
+    result = inspect_zip(zip_bytes)
+
+    OUTPUT_PATH.write_text(
+        json.dumps(result, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+    print(f"Saved sample to: {OUTPUT_PATH}")
+
+
+if __name__ == "__main__":
+    main()
