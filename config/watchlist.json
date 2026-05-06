@@ -1,0 +1,179 @@
+{
+  "subjects": [
+    {
+      "id": "edr_00481198",
+      "type": "company",
+      "name": "АТ \"Фармак\"",
+      "code": "00481198",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_38735747",
+      "type": "company",
+      "name": "ТОВ \"ФАРМПРОТЕКТ\"",
+      "code": "38735747",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_31117042",
+      "type": "company",
+      "name": "ПП \"САНА КО\"",
+      "code": "31117042",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_37793580",
+      "type": "company",
+      "name": "ТОВ \"КОД ЗДОРОВ'Я\"",
+      "code": "37793580",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_40581739",
+      "type": "company",
+      "name": "ТОВ \"ДОЙЧ-ФАРМ\"",
+      "code": "40581739",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_40121473",
+      "type": "company",
+      "name": "ТОВ \"ТОРІ ГРУП УКРАЇНА\"",
+      "code": "40121473",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_01333643",
+      "type": "company",
+      "name": "КП ЦРА №3",
+      "code": "01333643",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "person_kostiuk_1986",
+      "type": "person",
+      "name": "КОСТЮК ВОЛОДИМИР ГРИГОРОВИЧ",
+      "birthdate": "1986-04-04",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "person_pershko_1978",
+      "type": "person",
+      "name": "ПЕРШКО ОЛЕНА ВОЛОДИМИРІВНА",
+      "birthdate": "1978-01-13",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_37068787",
+      "type": "company",
+      "name": "ТОВ \"ДОЛФІ-УКРАЇНА\"",
+      "code": "37068787",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_31816235",
+      "type": "company",
+      "name": "ТОВ \"БАДМ\"",
+      "code": "31816235",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_21947206",
+      "type": "company",
+      "name": "ТОВ \"ВЕНТА. ЛТД\"",
+      "code": "21947206",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_21642228",
+      "type": "company",
+      "name": "СП \"ОПТІМА-ФАРМ, ЛТД\"",
+      "code": "21642228",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_32069917",
+      "type": "company",
+      "name": "ТОВ \"КОМОДОР\"",
+      "code": "32069917",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_41516503",
+      "type": "company",
+      "name": "ТОВ \"ДРУКАРНЯ ВІОЛ ПРИНТ\"",
+      "code": "41516503",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_42199138",
+      "type": "company",
+      "name": "ТОВ \"ПРЕДСТАВНИЦТВО БАУМ ФАРМ ГМБХ\"",
+      "code": "42199138",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_21738610",
+      "type": "company",
+      "name": "ТЗОВ ФІРМА \"ВОЛИНЬФАРМ\"",
+      "code": "21738610",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_38218086",
+      "type": "company",
+      "name": "ТОВ \"АМЕТРІН ФК\"",
+      "code": "38218086",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_25184975",
+      "type": "company",
+      "name": "ТОВ \"ТОМАШ\"",
+      "code": "25184975",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_41364731",
+      "type": "company",
+      "name": "ТОВ \"САНДЕРС ЛОФТ\"",
+      "code": "41364731",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_23060192",
+      "type": "company",
+      "name": "ПП \"КОНЕКС\"",
+      "code": "23060192",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_41199650",
+      "type": "company",
+      "name": "ТОВ \"ПОДОРОЖНИК КИЇВ\"",
+      "code": "41199650",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_20037376",
+      "type": "company",
+      "name": "ТОВ \"ФАРМАКО\"",
+      "code": "20037376",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_45871275",
+      "type": "company",
+      "name": "ТОВ \"СМ-ФАРМ\"",
+      "code": "45871275",
+      "roles": ["debtor", "creditor"]
+    },
+    {
+      "id": "edr_35208394",
+      "type": "company",
+      "name": "ТОВ \"ІННОВАЦІЯ ІНВЕСТ КОМПАНІ\"",
+      "code": "35208394",
+      "roles": ["debtor", "creditor"]
+    }
+  ]
+}
