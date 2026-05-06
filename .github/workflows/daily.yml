@@ -49,7 +49,7 @@ jobs:
         run: |
           python scripts/diff_snapshots.py
 
-      - name: Commit data
+      - name: Commit data and dashboard
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
@@ -57,11 +57,14 @@ jobs:
           git add data/current.json
           git add data/previous.json
           git add data/changes.json
+          git add docs/index.html
+          git add docs/styles.css
+          git add docs/app.js
 
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update ASVP snapshots"
+            git commit -m "Update ASVP dashboard data"
             git push
           fi
 
@@ -73,3 +76,6 @@ jobs:
             data/current.json
             data/previous.json
             data/changes.json
+            docs/index.html
+            docs/styles.css
+            docs/app.js
