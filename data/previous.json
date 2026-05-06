@@ -1,12 +1,15 @@
 {
-  "generated_at": "2026-05-06T20:36:55.314366+00:00",
+  "generated_at": "2026-05-06T20:19:02.459389+00:00",
   "source_url": "https://data.gov.ua/dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip",
+  "attempt": 1,
+  "max_attempts": 3,
   "csv_file_name": "28-ex_csv_asvp.csv",
   "rows_scanned": 4086225,
   "matched_records_total": 76,
   "is_partial": true,
   "warnings": [
-    "ZIP CRC error after scanning 4,086,225 rows. Partial snapshot saved. Error: Bad CRC-32 for file '28-ex_csv_asvp.csv'"
+    "Attempt 1: ZIP CRC error after scanning 4,086,225 rows. Partial snapshot produced. Error: Bad CRC-32 for file '28-ex_csv_asvp.csv'",
+    "All attempts produced partial snapshots. Saved the best partial result."
   ],
   "records": [
     {
