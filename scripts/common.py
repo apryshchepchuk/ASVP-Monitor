@@ -9,7 +9,7 @@ from typing import Any
 ROOT_DIR = Path(__file__).resolve().parents[1]
 
 CONFIG_DIR = ROOT_DIR / "config"
-DATA_DIR = ROOT_DIR / "data"
+DATA_DIR = ROOT_DIR / "docs" / "data"
 
 
 def load_json(path: Path) -> Any:
