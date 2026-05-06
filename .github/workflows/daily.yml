@@ -32,11 +32,11 @@ jobs:
 
       - name: Rotate snapshots
         run: |
-          mkdir -p data
+          mkdir -p docs/data
 
-          if [ -f data/current.json ]; then
-            cp data/current.json data/previous.json
-            echo "Copied current.json -> previous.json"
+          if [ -f docs/data/current.json ]; then
+            cp docs/data/current.json docs/data/previous.json
+            echo "Copied docs/data/current.json -> docs/data/previous.json"
           else
             echo "No current.json yet"
           fi
@@ -54,9 +54,9 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add data/current.json
-          git add data/previous.json
-          git add data/changes.json
+          git add docs/data/current.json
+          git add docs/data/previous.json
+          git add docs/data/changes.json
           git add docs/index.html
           git add docs/styles.css
           git add docs/app.js
@@ -73,9 +73,9 @@ jobs:
         with:
           name: asvp-data
           path: |
-            data/current.json
-            data/previous.json
-            data/changes.json
+            docs/data/current.json
+            docs/data/previous.json
+            docs/data/changes.json
             docs/index.html
             docs/styles.css
             docs/app.js
