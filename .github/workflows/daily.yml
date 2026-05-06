@@ -30,9 +30,24 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Rotate snapshots
+        run: |
+          mkdir -p data
+
+          if [ -f data/current.json ]; then
+            cp data/current.json data/previous.json
+            echo "Copied current.json -> previous.json"
+          else
+            echo "No current.json yet"
+          fi
+
       - name: Run ASVP scan
         run: |
           python scripts/scan_asvp.py
+
+      - name: Build diff
+        run: |
+          python scripts/diff_snapshots.py
 
       - name: Commit data
         run: |
@@ -40,16 +55,21 @@ jobs:
           git config user.email "github-actions@github.com"
 
           git add data/current.json
+          git add data/previous.json
+          git add data/changes.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update ASVP snapshot"
+            git commit -m "Update ASVP snapshots"
             git push
           fi
 
-      - name: Upload current snapshot
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: asvp-current
-          path: data/current.json
+          name: asvp-data
+          path: |
+            data/current.json
+            data/previous.json
+            data/changes.json
