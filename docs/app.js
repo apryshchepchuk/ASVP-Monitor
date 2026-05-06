@@ -268,8 +268,8 @@ async function loadJson(path) {
 async function init() {
   try {
     const [current, changes] = await Promise.all([
-      loadJson("../data/current.json"),
-      loadJson("../data/changes.json"),
+      loadJson("./data/current.json"),
+      loadJson("./data/changes.json"),
     ]);
 
     state.current = current;
