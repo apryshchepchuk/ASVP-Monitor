@@ -123,11 +123,27 @@ function recordSearchText(record) {
   ].join(" "));
 }
 
+function getSubjectsMap() {
+  const subjects = new Map();
+
+  for (const record of state.dashboard?.records || []) {
+    const id = record.subject?.id;
+    const name = record.subject?.name;
+
+    if (id && name) {
+      subjects.set(id, name);
+    }
+  }
+
+  return subjects;
+}
+
 function toggleFilter(type, value) {
   if (type === "all") {
     state.filters.roles.clear();
     state.filters.states.clear();
     state.filters.flags.clear();
+    state.filters.subjects.clear();
     render();
     return;
   }
@@ -155,7 +171,8 @@ function isKpiActive(item) {
     return (
       state.filters.roles.size === 0 &&
       state.filters.states.size === 0 &&
-      state.filters.flags.size === 0
+      state.filters.flags.size === 0 &&
+      state.filters.subjects.size === 0
     );
   }
 
@@ -171,8 +188,13 @@ function renderSummary() {
 
   els.summary.innerHTML = KPI_CONFIG.map((item) => {
     const active = isKpiActive(item) ? " is-active" : "";
+
     return `
-      <button class="summary-card${active}" data-filter-type="${escapeHtml(item.type)}" data-filter-value="${escapeHtml(item.value || "")}">
+      <button
+        class="summary-card${active}"
+        data-filter-type="${escapeHtml(item.type)}"
+        data-filter-value="${escapeHtml(item.value || "")}"
+      >
         <div class="summary-value">${kpi[item.key] ?? 0}</div>
         <div class="summary-label">${escapeHtml(item.label)}</div>
       </button>
@@ -187,21 +209,27 @@ function renderSummary() {
 }
 
 function recordMatchesFilters(record) {
-  if (state.filters.roles.size > 0 && !state.filters.roles.has(record.subject?.role)) {
-    return false;
-  }
-
-  if (state.filters.states.size > 0 && !state.filters.states.has(record.state?.category)) {
+  if (
+    state.filters.roles.size > 0 &&
+    !state.filters.roles.has(record.subject?.role)
+  ) {
     return false;
   }
 
   if (
-  state.filters.subjects.size > 0 &&
-  !state.filters.subjects.has(record.subject?.id)
-) {
-  return false;
-}
-  
+    state.filters.states.size > 0 &&
+    !state.filters.states.has(record.state?.category)
+  ) {
+    return false;
+  }
+
+  if (
+    state.filters.subjects.size > 0 &&
+    !state.filters.subjects.has(record.subject?.id)
+  ) {
+    return false;
+  }
+
   if (state.filters.flags.size > 0) {
     for (const flag of state.filters.flags) {
       if (!record.flags?.[flag]) return false;
@@ -221,17 +249,7 @@ function filteredRecords() {
 }
 
 function renderSubjectFilters() {
-  const records = state.dashboard?.records || [];
-  const subjects = new Map();
-
-  for (const record of records) {
-    const id = record.subject?.id;
-    const name = record.subject?.name;
-
-    if (!id || !name) continue;
-
-    subjects.set(id, name);
-  }
+  const subjects = getSubjectsMap();
 
   if (!subjects.size) return "";
 
@@ -241,7 +259,10 @@ function renderSubjectFilters() {
         const active = state.filters.subjects.has(id) ? " is-active" : "";
 
         return `
-          <button class="subject-filter${active}" data-subject-id="${escapeHtml(id)}">
+          <button
+            class="subject-filter${active}"
+            data-subject-id="${escapeHtml(id)}"
+          >
             ${escapeHtml(name)}
           </button>
         `;
@@ -252,21 +273,15 @@ function renderSubjectFilters() {
 
 function renderActiveFilters() {
   const chips = [];
-  const subjects = new Map();
+  const subjects = getSubjectsMap();
 
-for (const record of state.dashboard?.records || []) {
-  if (record.subject?.id && record.subject?.name) {
-    subjects.set(record.subject.id, record.subject.name);
+  for (const subjectId of state.filters.subjects) {
+    chips.push({
+      type: "subject",
+      value: subjectId,
+      label: subjects.get(subjectId) || subjectId,
+    });
   }
-}
-
-for (const subjectId of state.filters.subjects) {
-  chips.push({
-    type: "subject",
-    value: subjectId,
-    label: subjects.get(subjectId) || subjectId,
-  });
-}
 
   for (const role of state.filters.roles) {
     chips.push({ type: "role", value: role, label: roleLabel(role) });
@@ -289,12 +304,24 @@ for (const subjectId of state.filters.subjects) {
   return `
     <div class="filter-chips">
       ${chips.map((chip) => `
-        <button class="filter-chip" data-type="${escapeHtml(chip.type)}" data-value="${escapeHtml(chip.value)}">
+        <button
+          class="filter-chip"
+          data-type="${escapeHtml(chip.type)}"
+          data-value="${escapeHtml(chip.value)}"
+        >
           ${escapeHtml(chip.label)} ×
         </button>
       `).join("")}
     </div>
   `;
+}
+
+function bindSubjectFilters() {
+  document.querySelectorAll(".subject-filter").forEach((button) => {
+    button.addEventListener("click", () => {
+      toggleFilter("subject", button.dataset.subjectId);
+    });
+  });
 }
 
 function bindFilterChips() {
@@ -307,10 +334,13 @@ function bindFilterChips() {
 
 function eventLabel(event) {
   if (event.event_type === "new_case") return "Нове ВП";
+
   if (event.event_type === "state_changed") {
     return `Стан: ${event.old_state || "—"} → ${event.new_state || "—"}`;
   }
+
   if (event.event_type === "details_changed") return "Зміна реквізитів";
+
   return event.event_type || "Подія";
 }
 
@@ -363,7 +393,7 @@ function renderRecord(record) {
           <div>${escapeHtml(record.parties?.debtor_name || "—")} ${record.parties?.debtor_code ? `· ${escapeHtml(record.parties.debtor_code)}` : ""}</div>
 
           <div class="label">Дата народження боржника</div>
-          <div>${escapeHtml(record.parties?.debtor_birthdate || "—")}</div>
+          <div>${escapeHtml(formatDateOnly(record.parties?.debtor_birthdate))}</div>
 
           <div class="label">Стягувач</div>
           <div>${escapeHtml(record.parties?.creditor_name || "—")} ${record.parties?.creditor_code ? `· ${escapeHtml(record.parties.creditor_code)}` : ""}</div>
@@ -387,49 +417,35 @@ function renderRecord(record) {
   `;
 }
 
-function bindSubjectFilters() {
-  document.querySelectorAll(".subject-filter").forEach((button) => {
-    button.addEventListener("click", () => {
-      toggleFilter("subject", button.dataset.subjectId);
-    });
-  });
-}
-
 function renderRecords() {
   const records = filteredRecords();
 
   if (!records.length) {
     els.content.innerHTML = `
+      ${renderSubjectFilters()}
       ${renderActiveFilters()}
       <div class="empty">Нічого не знайдено.</div>
     `;
-    els.content.innerHTML = `
-  ${renderSubjectFilters()}
-  ${renderActiveFilters()}
-  <div class="empty">Нічого не знайдено.</div>
-`;
+
+    bindSubjectFilters();
     bindFilterChips();
     return;
   }
 
   els.content.innerHTML = `
+    ${renderSubjectFilters()}
     ${renderActiveFilters()}
     ${records.map(renderRecord).join("")}
   `;
-els.content.innerHTML = `
-  ${renderSubjectFilters()}
-  ${renderActiveFilters()}
-  ${records.map(renderRecord).join("")}
-`;
-  bindFilterChips();
+
   bindSubjectFilters();
+  bindFilterChips();
 }
 
 function render() {
   renderSummary();
 
   const generatedAt = state.dashboard?.generated_at;
-  const source = state.dashboard?.source || {};
 
   els.updatedAt.textContent = generatedAt
     ? `Оновлення: ${formatDateTime(generatedAt)}`
