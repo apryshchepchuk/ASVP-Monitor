@@ -55,6 +55,26 @@ function formatDateTime(value) {
   });
 }
 
+function formatDateOnly(value) {
+  if (!value) return "—";
+
+  const text = String(value).trim();
+
+  const match = text.match(/^(\d{2})\.(\d{2})\.(\d{4})/);
+  if (match) {
+    return `${match[1]}.${match[2]}.${match[3]}`;
+  }
+
+  const date = new Date(text);
+  if (Number.isNaN(date.getTime())) return text;
+
+  return date.toLocaleDateString("uk-UA", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+}
+
 function normalize(value) {
   return String(value ?? "").toLowerCase();
 }
@@ -147,7 +167,7 @@ function renderSummary() {
   const kpi = state.dashboard?.kpi || {};
 
   els.summary.innerHTML = KPI_CONFIG.map((item) => {
-    const active = isKpiActive(item) ? " active" : "";
+    const active = isKpiActive(item) ? " is-active" : "";
     return `
       <button class="summary-card${active}" data-filter-type="${escapeHtml(item.type)}" data-filter-value="${escapeHtml(item.value || "")}">
         <div class="summary-value">${kpi[item.key] ?? 0}</div>
@@ -266,7 +286,7 @@ function renderRecord(record) {
           <div class="meta">
             ${escapeHtml(record.subject?.name || "—")} · код ${escapeHtml(record.subject?.code || "—")}
             <br />
-            Дата відкриття: ${escapeHtml(record.dates?.vp_begin || "—")}
+            Дата відкриття: ${escapeHtml(formatDateOnly(record.dates?.vp_begin))}
           </div>
         </div>
 
@@ -342,11 +362,8 @@ function render() {
     ? `Оновлення: ${formatDateTime(generatedAt)}`
     : "Оновлення: —";
 
-  els.statusBox.classList.remove("hidden");
-  els.statusBox.textContent =
-    `Зчитано рядків: ${source.rows_scanned?.toLocaleString("uk-UA") || "—"} · ` +
-    `Збігів: ${source.matched_records_total || "—"} · ` +
-    `Reader: ${source.reader || "—"}`;
+  els.statusBox.classList.add("hidden");
+  els.statusBox.textContent = "";
 
   renderRecords();
 }
