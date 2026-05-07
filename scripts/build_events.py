@@ -36,6 +36,7 @@ def load_events() -> dict[str, Any]:
             "events": data,
         }
 
+    data.setdefault("events", [])
     return data
 
 
@@ -139,14 +140,15 @@ def main() -> None:
     }
 
     detected_at = current.get("generated_at") or changes.get("generated_at") or now_iso()
+    is_initial_snapshot = bool(changes.get("is_initial_snapshot"))
 
     new_events: list[dict[str, Any]] = []
 
-    is_initial_snapshot = bool(changes.get("is_initial_snapshot"))
-    
     if not is_initial_snapshot:
-    for record in changes.get("added", []):
-        new_events.append(make_new_case_event(record, detected_at))
+        for record in changes.get("added", []):
+            new_events.append(make_new_case_event(record, detected_at))
+    else:
+        print("Initial snapshot detected: skipping new_case events for baseline.")
 
     for item in changes.get("state_changed", []):
         new_events.append(make_state_changed_event(item, detected_at))
