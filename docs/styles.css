@@ -104,14 +104,20 @@ h1 {
 }
 
 .summary-card.is-active {
-  background: #0a84ff;
   border-color: #0a84ff;
-  color: white;
+  background: rgba(10, 132, 255, 0.08);
+  box-shadow:
+    0 0 0 2px rgba(10, 132, 255, 0.18),
+    0 14px 34px rgba(0, 122, 255, 0.12);
 }
 
-.summary-card.is-active .summary-label,
 .summary-card.is-active .summary-value {
-  color: white;
+  color: #0a84ff;
+}
+
+.summary-card.is-active .summary-label {
+  color: #0a84ff;
+  font-weight: 650;
 }
 
 .summary-value {
