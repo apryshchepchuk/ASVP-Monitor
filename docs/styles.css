@@ -345,6 +345,36 @@ h1 {
   box-shadow: var(--shadow);
 }
 
+    .subject-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 4px;
+}
+
+.subject-filter {
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 650;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.subject-filter:hover {
+  border-color: rgba(0, 122, 255, 0.28);
+}
+
+.subject-filter.is-active {
+  border-color: #0a84ff;
+  background: rgba(10, 132, 255, 0.08);
+  color: #0a84ff;
+  box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.14);
+}
+
 @media (max-width: 980px) {
   .summary {
     grid-template-columns: repeat(3, 1fr);
@@ -393,36 +423,6 @@ h1 {
   .change-row {
     grid-template-columns: 1fr;
   }
-
-    .subject-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 4px;
-}
-
-.subject-filter {
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--text);
-  border-radius: 999px;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 650;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-}
-
-.subject-filter:hover {
-  border-color: rgba(0, 122, 255, 0.28);
-}
-
-.subject-filter.is-active {
-  border-color: #0a84ff;
-  background: rgba(10, 132, 255, 0.08);
-  color: #0a84ff;
-  box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.14);
-}
 
 
   h1 {
