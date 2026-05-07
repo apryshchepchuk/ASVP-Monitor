@@ -85,6 +85,19 @@ jobs:
             git push
           fi
 
+      - name: Send email digest
+        env:
+          EMAIL_ENABLED: ${{ vars.EMAIL_ENABLED }}
+          DASHBOARD_URL: ${{ vars.DASHBOARD_URL }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: |
+          python scripts/send_email_digest.py
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
