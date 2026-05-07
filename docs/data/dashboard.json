@@ -1,0 +1,1470 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-05-07T08:02:29.110943+00:00",
+  "window_days": 14,
+  "source": {
+    "rows_scanned": 29410890,
+    "matched_records_total": 38,
+    "reader": "unzip -p",
+    "is_partial": false,
+    "csv_file_name": "28-ex_csv_asvp.csv"
+  },
+  "kpi": {
+    "total": 38,
+    "debtors": 16,
+    "creditors": 22,
+    "active": 7,
+    "completed": 25,
+    "stopped": 1,
+    "refused": 5,
+    "other": 0,
+    "new_14d": 0,
+    "changed_14d": 0
+  },
+  "records": [
+    {
+      "match_key": "80901964|debtor|edr_00481198",
+      "vp_ordernum": "80901964",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Відкрито",
+        "category": "active"
+      },
+      "dates": {
+        "vp_begin": "01.05.2026 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Компанії «Баєр Інтеллекчуел Проперті Гмбх» (Bayer Intellectual Property GmbH)",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Телявський А.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "80529905|creditor|edr_00481198",
+      "vp_ordernum": "80529905",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "17.03.2026 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ПРИВАТНЕ ПІДПРИЄМСТВО \"САНА КО\"",
+        "debtor_birthdate": "",
+        "debtor_code": "31117042",
+        "creditor_name": "Акціонерне товариство \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Літвінішина І.І.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "79579764|creditor|edr_00481198",
+      "vp_ordernum": "79579764",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "12.11.2025 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Приватне підприємство \"САНА КО\"",
+        "debtor_birthdate": "",
+        "debtor_code": "31117042",
+        "creditor_name": "Акціонерне товариство \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Літвінішина І.І.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "74699630|creditor|edr_00481198",
+      "vp_ordernum": "74699630",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Відкрито",
+        "category": "active"
+      },
+      "dates": {
+        "vp_begin": "09.04.2024 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ТОРІ ГРУП УКРАЇНА\"",
+        "debtor_birthdate": "",
+        "debtor_code": "40121473",
+        "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Борський Р.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "73910307|debtor|edr_00481198",
+      "vp_ordernum": "73910307",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "24.01.2024 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Львівська міська рада Департамент міської мобільності та вуличної інфраструктури",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Подільський відділ державної виконавчої служби у місті Києві Київського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "34482497"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "73424065|creditor|edr_00481198",
+      "vp_ordernum": "73424065",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Відкрито",
+        "category": "active"
+      },
+      "dates": {
+        "vp_begin": "23.11.2023 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ІННОВАЦІЯ ІНВЕСТ КОМПАНІ\"",
+        "debtor_birthdate": "",
+        "debtor_code": "35208394",
+        "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Борський Р.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "73423860|creditor|edr_00481198",
+      "vp_ordernum": "73423860",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Відкрито",
+        "category": "active"
+      },
+      "dates": {
+        "vp_begin": "23.11.2023 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КОД ЗДОРОВ'Я\"",
+        "debtor_birthdate": "",
+        "debtor_code": "37793580",
+        "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Борський Р.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "72893075|creditor|edr_00481198",
+      "vp_ordernum": "72893075",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Відкрито",
+        "category": "active"
+      },
+      "dates": {
+        "vp_begin": "02.10.2023 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "КОМУНАЛЬНЕ ПІДПРИЄМСТВО ЦЕНТРАЛЬНА РАЙОННА АПТЕКА № 3 СУВОРОВСЬКОГО РАЙОНУ М.ХЕРСОНА",
+        "debtor_birthdate": "",
+        "debtor_code": "01333643",
+        "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Суворовський відділ державної виконавчої служби у місті Херсоні Одеського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "34906703"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "72438234|creditor|edr_00481198",
+      "vp_ordernum": "72438234",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Відкрито",
+        "category": "active"
+      },
+      "dates": {
+        "vp_begin": "03.08.2023 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ДРУКАРНЯ ВІОЛ ПРІНТ\"",
+        "debtor_birthdate": "",
+        "debtor_code": "41516503",
+        "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Борський Р.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "72373177|debtor|edr_00481198",
+      "vp_ordernum": "72373177",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "28.07.2023 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Тернопільська міська рада Управління муніципальної інспекції",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Подільський відділ державної виконавчої служби у місті Києві Київського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "34482497"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "71430545|debtor|edr_00481198",
+      "vp_ordernum": "71430545",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "03.04.2023 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Державна судова адміністрація України",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Подільський відділ державної виконавчої служби у місті Києві Київського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "34482497"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "66281259|debtor|edr_00481198",
+      "vp_ordernum": "66281259",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "27.07.2021 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Чугуївський міський суд Харківської області",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Подільський відділ державної виконавчої служби у місті Києві Київського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "34482497"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "66004732|debtor|edr_00481198",
+      "vp_ordernum": "66004732",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "07.07.2021 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Дробот Наталія Миколаївна",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Подільський відділ державної виконавчої служби у місті Києві Київського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "34482497"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "66004510|debtor|edr_00481198",
+      "vp_ordernum": "66004510",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "07.07.2021 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Дробот Євген Олександрович",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Подільський відділ державної виконавчої служби у місті Києві Київського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "34482497"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "63357083|creditor|edr_00481198",
+      "vp_ordernum": "63357083",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Зупинено",
+        "category": "stopped"
+      },
+      "dates": {
+        "vp_begin": "23.10.2020 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ПОЛТАВСЬКЕ ОБЛАСНЕ КОМУНАЛЬНЕ ПІДПРИЄМСТВО \"ПОЛТАВАФАРМ\"",
+        "debtor_birthdate": "",
+        "debtor_code": "32986923",
+        "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Відділ примусового виконання рішень Управління забезпечення примусового виконання рішень у Полтавській області Сумського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "43316700"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "61952644|debtor|edr_00481198",
+      "vp_ordernum": "61952644",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "04.05.2020 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "ІНСПЕКЦІЯ З ПИТАНЬ КОНТРОЛЮ ЗА ПАРКУВАННЯМ ДНІПРОВСЬКОЇ МІСЬКОЇ РАДИ",
+        "creditor_code": "42403446"
+      },
+      "dvs": {
+        "org_name": "Подільський відділ державної виконавчої служби у місті Києві Київського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "34482497"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "61808852|creditor|edr_00481198",
+      "vp_ordernum": "61808852",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "13.04.2020 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕНДОСКОПІЧНА НЕЙРОХІРУРГІЯ\"",
+        "debtor_birthdate": "",
+        "debtor_code": "24984998",
+        "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Лисенко Ю.О.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "60545213|creditor|edr_00481198",
+      "vp_ordernum": "60545213",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "08.11.2019 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "МІНІСТЕРСТВО ОХОРОНИ ЗДОРОВ'Я УКРАЇНИ",
+        "debtor_birthdate": "",
+        "debtor_code": "00012925",
+        "creditor_name": "ПУБЛІЧНЕ АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
+        "dvs_code": "00015622"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "59899528|creditor|edr_00481198",
+      "vp_ordernum": "59899528",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Відкрито",
+        "category": "active"
+      },
+      "dates": {
+        "vp_begin": "28.08.2019 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ТОВ \"Фрам Ко\"",
+        "debtor_birthdate": "",
+        "debtor_code": "39443405",
+        "creditor_name": "ПАТ \"Фармак\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Броварський відділ державної виконавчої служби у Броварському районі Київської області Київського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "34837745"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "59647351|creditor|edr_00481198",
+      "vp_ordernum": "59647351",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "31.07.2019 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ТОВ \"ФАРМАЦЕВТИЧНА КОМПАНІЯ \"ЗДОРОВ'Я\"",
+        "debtor_birthdate": "",
+        "debtor_code": "31437750",
+        "creditor_name": "ПАТ \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Київський відділ державної виконавчої служби міста Харків Головного територіального управління юстиції у Харківській області",
+        "dvs_code": "34952440"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "59647119|creditor|edr_00481198",
+      "vp_ordernum": "59647119",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "29.07.2019 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ТОВ \"ФАРМАЦЕВТИЧНА КОМПАНІЯ \"ЗДОРОВ'Я\"",
+        "debtor_birthdate": "",
+        "debtor_code": "31437750",
+        "creditor_name": "ПАТ \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Київський відділ державної виконавчої служби міста Харків Головного територіального управління юстиції у Харківській області",
+        "dvs_code": "34952440"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "55578057|debtor|edr_00481198",
+      "vp_ordernum": "55578057",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "18.01.2018 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Публічне акціонерне товариство \"ФАРМАК\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Лазаренко Ірина Миколаївна",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Наконечний І.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "55577264|debtor|edr_00481198",
+      "vp_ordernum": "55577264",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "18.01.2018 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Публічне акціонерне товариство \"Фармак\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Лазаренко Ірина Миколаївна",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Наконечний І.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "55576208|debtor|edr_00481198",
+      "vp_ordernum": "55576208",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "18.01.2018 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Публічне акціонерне товариство \"Фармак\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Лазаренко Ірина Миколаївна",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Наконечний І.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "55573993|debtor|edr_00481198",
+      "vp_ordernum": "55573993",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "18.01.2018 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Публічне акціонерне товариство \"Фармак\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Лазаренко Ірина Миколаївна",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Наконечний І.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "55571741|debtor|edr_00481198",
+      "vp_ordernum": "55571741",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "17.01.2018 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Публічне акціонерне товариство \"Фармак\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Лазаренко Ірина Миколаївна",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Наконечний І.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "55571583|debtor|edr_00481198",
+      "vp_ordernum": "55571583",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "17.01.2018 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Публічне акціонерне товариство \"Фармак\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Лазаренко Ірина Миколаївна",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Наконечний І.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "55570004|debtor|edr_00481198",
+      "vp_ordernum": "55570004",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "17.01.2018 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Публічне акціонерне товариство \"Фармак\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Лазаренко Ірина Миколаївна",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Наконечний І.М.",
+        "dvs_code": ""
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "54327574|creditor|edr_00481198",
+      "vp_ordernum": "54327574",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "19.07.2017 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Київська міська митниця Державної фіскальної служби",
+        "debtor_birthdate": "",
+        "debtor_code": "39422888",
+        "creditor_name": "Публічне акціонерне товариство \"Фармак\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Відділ примусового виконання рішень Управління державної виконавчої служби Головного територіального управління юстиції у м. Києві",
+        "dvs_code": "34691374"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "53292917|creditor|edr_00481198",
+      "vp_ordernum": "53292917",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "31.01.2017 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ТОВ \"Укрспецріелті\"",
+        "debtor_birthdate": "",
+        "debtor_code": "32043375",
+        "creditor_name": "ПАТ \"Фармак\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Центрально-міський відділ державної виконавчої служби міста Кривий Ріг Головного територіального управління юстиціїї у Дніпропетровській області",
+        "dvs_code": "34545876"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "50896654|creditor|edr_00481198",
+      "vp_ordernum": "50896654",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "04.05.2016 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ГОРИЗОНТ УКРАЇНА ЦЕНТР\"",
+        "debtor_birthdate": "",
+        "debtor_code": "38336332",
+        "creditor_name": "ПУБЛІЧНЕ АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Шевченківський районний відділ державної виконавчої служби міста Київ Головного територіального управління юстиції у місті Києві",
+        "dvs_code": "34967593"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "49831015|debtor|edr_00481198",
+      "vp_ordernum": "49831015",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "02.02.2016 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Публічне акціонерне товариство \"ФАРМАК\"",
+        "debtor_birthdate": "",
+        "debtor_code": "00481198",
+        "creditor_name": "Астра Зенека АБ (Astra Zeneka AB)",
+        "creditor_code": ""
+      },
+      "dvs": {
+        "org_name": "Подільський районний відділ державної виконавчої служби міста Київ Головного територіального управління юстиції у місті Києві",
+        "dvs_code": "34482497"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "49719695|creditor|edr_00481198",
+      "vp_ordernum": "49719695",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Завершено",
+        "category": "completed"
+      },
+      "dates": {
+        "vp_begin": "24.12.2015 00:00:00",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Приватне акціонерне товариство \"Альба Україна\"",
+        "debtor_birthdate": "",
+        "debtor_code": "22946976",
+        "creditor_name": "Публічне акціонерне товариство \"Фармак\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Бориспільський міськрайонний відділ державної виконавчої служби Головного територіального управління юстиції у Київській області",
+        "dvs_code": "34977156"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "64924084|creditor|edr_00481198",
+      "vp_ordernum": "64924084",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Вімовлено у відкритті",
+        "category": "refused"
+      },
+      "dates": {
+        "vp_begin": "",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ОФІС ВЕЛИКИХ ПЛАТНИКІВ ПОДАТКІВ ДПС",
+        "debtor_birthdate": "",
+        "debtor_code": "43141471",
+        "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Відділ примусового виконання рішень Управління забезпечення примусового виконання рішень у місті Києві Київського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "43315602"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "64923898|creditor|edr_00481198",
+      "vp_ordernum": "64923898",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Вімовлено у відкритті",
+        "category": "refused"
+      },
+      "dates": {
+        "vp_begin": "",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ГОЛОВНЕ УПРАВЛІННЯ ДПС У М. КИЄВІ",
+        "debtor_birthdate": "",
+        "debtor_code": "43141267",
+        "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Відділ примусового виконання рішень Управління забезпечення примусового виконання рішень у місті Києві Київського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "43315602"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "64923818|creditor|edr_00481198",
+      "vp_ordernum": "64923818",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Вімовлено у відкритті",
+        "category": "refused"
+      },
+      "dates": {
+        "vp_begin": "",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ОФІС ВЕЛИКИХ ПЛАТНИКІВ ПОДАТКІВ ДПС",
+        "debtor_birthdate": "",
+        "debtor_code": "43141471",
+        "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО \"ФАРМАК\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Відділ примусового виконання рішень Управління забезпечення примусового виконання рішень у місті Києві Київського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "43315602"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "54237112|creditor|edr_00481198",
+      "vp_ordernum": "54237112",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Вімовлено у відкритті",
+        "category": "refused"
+      },
+      "dates": {
+        "vp_begin": "",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "КИЇВСЬКА МІСЬКА МИТНИЦЯ ДФС",
+        "debtor_birthdate": "",
+        "debtor_code": "39422888",
+        "creditor_name": "ПАТ \"Фармак\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
+        "dvs_code": "00015622"
+      },
+      "events": [],
+      "recent_events": []
+    },
+    {
+      "match_key": "53952259|creditor|edr_00481198",
+      "vp_ordernum": "53952259",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Вімовлено у відкритті",
+        "category": "refused"
+      },
+      "dates": {
+        "vp_begin": "",
+        "first_seen": null,
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "Київська міська митниця ДФС",
+        "debtor_birthdate": "",
+        "debtor_code": "39422888",
+        "creditor_name": "ПАТ \"Фармак\"",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Солом'янський районний відділ державної виконавчої служби міста Київ Головного територіального управління юстиції у місті Києві",
+        "dvs_code": "35008087"
+      },
+      "events": [],
+      "recent_events": []
+    }
+  ]
+}
