@@ -142,6 +142,9 @@ def main() -> None:
 
     new_events: list[dict[str, Any]] = []
 
+    is_initial_snapshot = bool(changes.get("is_initial_snapshot"))
+    
+    if not is_initial_snapshot:
     for record in changes.get("added", []):
         new_events.append(make_new_case_event(record, detected_at))
 
