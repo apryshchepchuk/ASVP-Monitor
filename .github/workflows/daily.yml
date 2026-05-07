@@ -66,10 +66,13 @@ jobs:
           git config user.email "github-actions@github.com"
 
           git add docs/data/current.json
-          git add docs/data/previous.json
           git add docs/data/changes.json
           git add docs/data/dashboard.json
           git add docs/data/history/events.json
+
+          if [ -f docs/data/previous.json ]; then
+            git add docs/data/previous.json
+          fi
 
           git add docs/index.html
           git add docs/styles.css
@@ -88,7 +91,6 @@ jobs:
           name: asvp-data
           path: |
             docs/data/current.json
-            docs/data/previous.json
             docs/data/changes.json
             docs/data/dashboard.json
             docs/data/history/events.json
