@@ -392,8 +392,10 @@ function renderRecord(record) {
           <div class="label">Боржник</div>
           <div>${escapeHtml(record.parties?.debtor_name || "—")} ${record.parties?.debtor_code ? `· ${escapeHtml(record.parties.debtor_code)}` : ""}</div>
 
+          ${record.subject?.type !== "company" ? `
           <div class="label">Дата народження боржника</div>
           <div>${escapeHtml(formatDateOnly(record.parties?.debtor_birthdate))}</div>
+        ` : ""}
 
           <div class="label">Стягувач</div>
           <div>${escapeHtml(record.parties?.creditor_name || "—")} ${record.parties?.creditor_code ? `· ${escapeHtml(record.parties.creditor_code)}` : ""}</div>
