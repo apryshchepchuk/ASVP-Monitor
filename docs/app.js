@@ -19,8 +19,8 @@ const els = {
 
 const KPI_CONFIG = [
   { key: "total", label: "Всього ВП", type: "all", value: null },
-  { key: "debtors", label: "Боржники", type: "role", value: "debtor" },
-  { key: "creditors", label: "Стягувачі", type: "role", value: "creditor" },
+  { key: "debtors", label: "Боржник", type: "role", value: "debtor" },
+  { key: "creditors", label: "Стягувач", type: "role", value: "creditor" },
 
   { key: "active", label: "Активні", type: "state", value: "active" },
   { key: "completed", label: "Завершені", type: "state", value: "completed" },
