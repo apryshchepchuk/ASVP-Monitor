@@ -20,6 +20,9 @@ def env(name: str, default: str = "") -> str:
 def enabled() -> bool:
     return env("EMAIL_ENABLED").lower() in {"1", "true", "yes", "on"}
 
+def force_send() -> bool:
+    return env("EMAIL_FORCE").lower() in {"1", "true", "yes", "on"}
+
 
 def load_changes() -> dict[str, Any]:
     if not CHANGES_PATH.exists():
@@ -158,7 +161,12 @@ def main() -> None:
     state_changed = changes.get("state_changed", [])
     details_changed = changes.get("details_changed", [])
 
-    if not added and not state_changed and not details_changed:
+    if (
+        not force_send()
+        and not added
+        and not state_changed
+        and not details_changed
+    ):
         print("No relevant changes: email digest skipped")
         return
 
