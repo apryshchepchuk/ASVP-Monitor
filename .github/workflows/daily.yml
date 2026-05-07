@@ -56,6 +56,10 @@ jobs:
         run: |
           python scripts/build_events.py
 
+      - name: Build dashboard data
+        run: |
+          python scripts/build_dashboard_data.py
+
       - name: Commit data and dashboard
         run: |
           git config user.name "github-actions"
@@ -64,6 +68,7 @@ jobs:
           git add docs/data/current.json
           git add docs/data/previous.json
           git add docs/data/changes.json
+          git add docs/data/dashboard.json
           git add docs/data/history/events.json
 
           git add docs/index.html
@@ -85,6 +90,7 @@ jobs:
             docs/data/current.json
             docs/data/previous.json
             docs/data/changes.json
+            docs/data/dashboard.json
             docs/data/history/events.json
             docs/index.html
             docs/styles.css
