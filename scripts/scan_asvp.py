@@ -4,6 +4,7 @@ import csv
 import io
 import subprocess
 import tempfile
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -83,36 +84,47 @@ class PrefixRawStream(io.RawIOBase):
 
 
 def download_zip_to_tempfile() -> Path:
-    temp = tempfile.NamedTemporaryFile(delete=False, suffix=".zip")
-    temp_path = Path(temp.name)
+    max_attempts = 3
 
-    print(f"Downloading ASVP ZIP to: {temp_path}")
+    for attempt in range(1, max_attempts + 1):
+        temp = tempfile.NamedTemporaryFile(delete=False, suffix=".zip")
+        temp_path = Path(temp.name)
 
-    try:
-        with requests.get(ZIP_URL, stream=True, timeout=600) as response:
-            response.raise_for_status()
+        print(f"Downloading ASVP ZIP, attempt {attempt}/{max_attempts}: {temp_path}")
 
-            total = 0
+        try:
+            with requests.get(ZIP_URL, stream=True, timeout=600) as response:
+                response.raise_for_status()
 
-            for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
-                if not chunk:
-                    continue
+                total = 0
 
-                temp.write(chunk)
-                total += len(chunk)
+                for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
+                    if not chunk:
+                        continue
 
-                if total % (1024 * 1024 * 500) < CHUNK_SIZE:
-                    print(f"Downloaded: {total / 1024 / 1024:.1f} MB")
+                    temp.write(chunk)
+                    total += len(chunk)
 
-        temp.close()
+                    if total % (1024 * 1024 * 500) < CHUNK_SIZE:
+                        print(f"Downloaded: {total / 1024 / 1024:.1f} MB")
 
-        print(f"Download complete: {temp_path.stat().st_size / 1024 / 1024:.1f} MB")
-        return temp_path
+            temp.close()
 
-    except Exception:
-        temp.close()
-        temp_path.unlink(missing_ok=True)
-        raise
+            print(f"Download complete: {temp_path.stat().st_size / 1024 / 1024:.1f} MB")
+            return temp_path
+
+        except Exception as exc:
+            temp.close()
+            temp_path.unlink(missing_ok=True)
+
+            print(f"Download attempt {attempt} failed: {exc}")
+
+            if attempt >= max_attempts:
+                raise
+
+            time.sleep(20 * attempt)
+
+    raise RuntimeError("Download failed")
 
 
 def get_csv_name_with_unzip(zip_path: Path) -> str:
@@ -165,6 +177,9 @@ def build_watch_indexes(watchlist: dict[str, Any]) -> dict[str, Any]:
     persons_by_name: dict[str, list[dict[str, Any]]] = {}
 
     for subject in watchlist.get("subjects", []):
+        if subject.get("enabled") is False:
+            continue
+
         subject_type = subject.get("type")
         roles = set(subject.get("roles", []))
 
