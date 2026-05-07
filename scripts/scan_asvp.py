@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import csv
 import io
+import subprocess
 import tempfile
-import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -31,6 +31,7 @@ OUTPUT_PATH = DATA_DIR / "current.json"
 
 ENCODING = "cp1251"
 CHUNK_SIZE = 1024 * 1024 * 8
+SNIFF_BYTES = 64 * 1024
 
 REQUIRED_COLUMNS = [
     "DEBTOR_NAME",
@@ -54,6 +55,31 @@ class SemicolonDialect(csv.Dialect):
     skipinitialspace = False
     lineterminator = "\n"
     quoting = csv.QUOTE_MINIMAL
+
+
+class PrefixRawStream(io.RawIOBase):
+    def __init__(self, prefix: bytes, stream: io.BufferedReader):
+        self._prefix = memoryview(prefix)
+        self._prefix_pos = 0
+        self._stream = stream
+
+    def readable(self) -> bool:
+        return True
+
+    def readinto(self, buffer: bytearray) -> int:
+        if self._prefix_pos < len(self._prefix):
+            size = min(len(buffer), len(self._prefix) - self._prefix_pos)
+            buffer[:size] = self._prefix[self._prefix_pos:self._prefix_pos + size]
+            self._prefix_pos += size
+            return size
+
+        data = self._stream.read(len(buffer))
+
+        if not data:
+            return 0
+
+        buffer[:len(data)] = data
+        return len(data)
 
 
 def download_zip_to_tempfile() -> Path:
@@ -89,16 +115,33 @@ def download_zip_to_tempfile() -> Path:
         raise
 
 
-def detect_dialect(text_stream: io.TextIOWrapper) -> csv.Dialect:
-    sample = text_stream.read(32_768)
-    text_stream.seek(0)
+def get_csv_name_with_unzip(zip_path: Path) -> str:
+    result = subprocess.run(
+        ["unzip", "-Z1", str(zip_path)],
+        text=True,
+        capture_output=True,
+        check=True,
+    )
 
-    if not sample.strip():
+    names = [
+        line.strip()
+        for line in result.stdout.splitlines()
+        if line.strip().lower().endswith(".csv")
+    ]
+
+    if not names:
+        raise RuntimeError("No CSV files found inside ZIP")
+
+    return names[0]
+
+
+def detect_dialect_from_sample(sample_text: str) -> csv.Dialect:
+    if not sample_text.strip():
         print("Empty CSV sample. Falling back to semicolon delimiter.")
         return SemicolonDialect
 
     try:
-        dialect = csv.Sniffer().sniff(sample, delimiters=";,|\t,")
+        dialect = csv.Sniffer().sniff(sample_text, delimiters=";,|\t,")
         print(f"Detected delimiter: {repr(dialect.delimiter)}")
         return dialect
 
@@ -109,16 +152,12 @@ def detect_dialect(text_stream: io.TextIOWrapper) -> csv.Dialect:
 
 def build_indexes(headers: list[str]) -> dict[str, int]:
     index_by_name = {name: idx for idx, name in enumerate(headers)}
-
     missing = [col for col in REQUIRED_COLUMNS if col not in index_by_name]
 
     if missing:
         raise RuntimeError(f"Missing required columns: {missing}")
 
-    return {
-        col: index_by_name[col]
-        for col in REQUIRED_COLUMNS
-    }
+    return {col: index_by_name[col] for col in REQUIRED_COLUMNS}
 
 
 def build_watch_indexes(watchlist: dict[str, Any]) -> dict[str, Any]:
@@ -138,16 +177,10 @@ def build_watch_indexes(watchlist: dict[str, Any]) -> dict[str, Any]:
         }
 
         if subject_type == "company" and normalized["code_norm"]:
-            companies_by_code.setdefault(
-                normalized["code_norm"],
-                [],
-            ).append(normalized)
+            companies_by_code.setdefault(normalized["code_norm"], []).append(normalized)
 
         if subject_type == "person" and normalized["name_norm"]:
-            persons_by_name.setdefault(
-                normalized["name_norm"],
-                [],
-            ).append(normalized)
+            persons_by_name.setdefault(normalized["name_norm"], []).append(normalized)
 
     return {
         "companies_by_code": companies_by_code,
@@ -194,10 +227,7 @@ def find_matches(
 
     debtor_name = normalize_text(row[idx["DEBTOR_NAME"]])
     creditor_name = normalize_text(row[idx["CREDITOR_NAME"]])
-
-    debtor_birthdate = str(
-        row[idx["DEBTOR_BIRTHDATE"]] or ""
-    ).strip()
+    debtor_birthdate = str(row[idx["DEBTOR_BIRTHDATE"]] or "").strip()
 
     for subject in watch["companies_by_code"].get(debtor_code, []):
         if "debtor" in subject["roles"]:
@@ -225,90 +255,113 @@ def find_matches(
     return matches
 
 
-def scan_csv_from_zip(
+def scan_csv_from_zip_with_unzip(
     zip_path: Path,
     watch: dict[str, Any],
 ) -> dict[str, Any]:
     records: dict[str, dict[str, Any]] = {}
-
-    rows_scanned = 0
-    csv_file_name = None
     warnings: list[str] = []
 
+    rows_scanned = 0
+    csv_file_name = get_csv_name_with_unzip(zip_path)
+
+    print(f"CSV file: {csv_file_name}")
+    print("Reading CSV via: unzip -p")
+
+    process = subprocess.Popen(
+        ["unzip", "-p", str(zip_path), csv_file_name],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+
+    if process.stdout is None:
+        raise RuntimeError("Could not open unzip stdout")
+
     try:
-        with zipfile.ZipFile(zip_path) as zf:
-            csv_names = [
-                name
-                for name in zf.namelist()
-                if name.lower().endswith(".csv")
-            ]
+        prefix = process.stdout.read(SNIFF_BYTES)
 
-            if not csv_names:
-                raise RuntimeError("No CSV files found inside ZIP")
-
-            csv_file_name = csv_names[0]
-
-            print(f"CSV file: {csv_file_name}")
-
-            with zf.open(csv_file_name) as raw_file:
-                text_stream = io.TextIOWrapper(
-                    raw_file,
-                    encoding=ENCODING,
-                    newline="",
-                    errors="replace",
-                )
-
-                dialect = detect_dialect(text_stream)
-
-                reader = csv.reader(
-                    text_stream,
-                    dialect=dialect,
-                )
-
-                headers = next(reader)
-                idx = build_indexes(headers)
-
-                print(f"Headers: {headers}")
-
-                for row in reader:
-                    rows_scanned += 1
-
-                    if len(row) < len(headers):
-                        continue
-
-                    matches = find_matches(row, idx, watch)
-
-                    for subject, role in matches:
-                        record = make_record(
-                            row=row,
-                            idx=idx,
-                            subject=subject,
-                            role=role,
-                        )
-
-                        records[record["match_key"]] = record
-
-                    if rows_scanned % 1_000_000 == 0:
-                        print(
-                            f"Rows scanned: {rows_scanned:,}; "
-                            f"matched records: {len(records):,}"
-                        )
-
-    except zipfile.BadZipFile as exc:
-        warning = (
-            f"ZIP CRC error after scanning "
-            f"{rows_scanned:,} rows. "
-            f"Partial snapshot saved. "
-            f"Error: {exc}"
+        sample_text = prefix.decode(
+            ENCODING,
+            errors="replace",
         )
 
-        print(f"WARNING: {warning}")
-        warnings.append(warning)
+        dialect = detect_dialect_from_sample(sample_text)
+
+        prefixed_raw = PrefixRawStream(
+            prefix=prefix,
+            stream=process.stdout,
+        )
+
+        buffered = io.BufferedReader(prefixed_raw)
+
+        text_stream = io.TextIOWrapper(
+            buffered,
+            encoding=ENCODING,
+            newline="",
+            errors="replace",
+        )
+
+        reader = csv.reader(
+            text_stream,
+            dialect=dialect,
+        )
+
+        headers = next(reader)
+        idx = build_indexes(headers)
+
+        print(f"Headers: {headers}")
+
+        for row in reader:
+            rows_scanned += 1
+
+            if len(row) < len(headers):
+                continue
+
+            matches = find_matches(row, idx, watch)
+
+            for subject, role in matches:
+                record = make_record(
+                    row=row,
+                    idx=idx,
+                    subject=subject,
+                    role=role,
+                )
+
+                records[record["match_key"]] = record
+
+            if rows_scanned % 1_000_000 == 0:
+                print(
+                    f"Rows scanned: {rows_scanned:,}; "
+                    f"matched records: {len(records):,}"
+                )
+
+    finally:
+        return_code = process.wait()
+        stderr_text = ""
+
+        if process.stderr is not None:
+            stderr_text = process.stderr.read().decode(
+                "utf-8",
+                errors="replace",
+            ).strip()
+
+        if return_code != 0:
+            warning = (
+                f"unzip exited with code {return_code} "
+                f"after scanning {rows_scanned:,} rows."
+            )
+
+            if stderr_text:
+                warning += f" stderr: {stderr_text[-1000:]}"
+
+            print(f"WARNING: {warning}")
+            warnings.append(warning)
 
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "source_url": ZIP_URL,
         "csv_file_name": csv_file_name,
+        "reader": "unzip -p",
         "rows_scanned": rows_scanned,
         "matched_records_total": len(records),
         "is_partial": bool(warnings),
@@ -335,7 +388,7 @@ def main() -> None:
     zip_path = download_zip_to_tempfile()
 
     try:
-        snapshot = scan_csv_from_zip(
+        snapshot = scan_csv_from_zip_with_unzip(
             zip_path=zip_path,
             watch=watch,
         )
