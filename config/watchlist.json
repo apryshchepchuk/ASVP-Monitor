@@ -54,7 +54,9 @@
       "roles": [
         "debtor",
         "creditor"
-      ]
+      ],
+      "enabled": false,
+      "updated_at": "2026-05-07T06:35:16.608210+00:00"
     },
     {
       "id": "edr_21642228",
