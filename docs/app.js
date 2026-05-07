@@ -1,8 +1,11 @@
 const state = {
-  current: null,
-  changes: null,
-  tab: "current",
+  dashboard: null,
   search: "",
+  filters: {
+    roles: new Set(),
+    states: new Set(),
+    flags: new Set(),
+  },
 };
 
 const els = {
@@ -11,8 +14,22 @@ const els = {
   statusBox: document.getElementById("statusBox"),
   content: document.getElementById("content"),
   searchInput: document.getElementById("searchInput"),
-  tabs: document.querySelectorAll(".tab"),
 };
+
+const KPI_CONFIG = [
+  { key: "total", label: "Всього ВП", type: "all", value: null },
+  { key: "debtors", label: "Боржники", type: "role", value: "debtor" },
+  { key: "creditors", label: "Стягувачі", type: "role", value: "creditor" },
+
+  { key: "active", label: "Активні", type: "state", value: "active" },
+  { key: "completed", label: "Завершені", type: "state", value: "completed" },
+  { key: "stopped", label: "Зупинені", type: "state", value: "stopped" },
+  { key: "refused", label: "Відмовлено", type: "state", value: "refused" },
+  { key: "other", label: "Інші стани", type: "state", value: "other" },
+
+  { key: "new_14d", label: "Нові 14 днів", type: "flag", value: "is_new_14d" },
+  { key: "changed_14d", label: "Зміни 14 днів", type: "flag", value: "is_changed_14d" },
+];
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -42,239 +59,311 @@ function normalize(value) {
   return String(value ?? "").toLowerCase();
 }
 
-function recordSearchText(record) {
-  return normalize([
-    record.subject_name,
-    record.subject_code,
-    record.role,
-    record.vp_ordernum,
-    record.vp_state,
-    record.debtor_name,
-    record.debtor_code,
-    record.creditor_name,
-    record.creditor_code,
-    record.org_name,
-    record.dvs_code,
-  ].join(" "));
-}
-
-function filterRecords(records) {
-  const q = normalize(state.search).trim();
-  if (!q) return records;
-
-  return records.filter((record) => recordSearchText(record).includes(q));
-}
-
 function roleLabel(role) {
   if (role === "debtor") return "Боржник";
   if (role === "creditor") return "Стягувач";
   return role || "—";
 }
 
-function roleClass(role) {
-  if (role === "debtor") return "debtor";
-  if (role === "creditor") return "creditor";
+function stateLabel(category) {
+  const labels = {
+    active: "Активне",
+    completed: "Завершене",
+    stopped: "Зупинене",
+    refused: "Відмовлено",
+    other: "Інше",
+  };
+
+  return labels[category] || category || "—";
+}
+
+function stateClass(category) {
+  if (category === "active") return "creditor";
+  if (category === "completed") return "partial";
+  if (category === "stopped") return "state";
+  if (category === "refused") return "debtor";
   return "partial";
 }
 
+function recordSearchText(record) {
+  return normalize([
+    record.vp_ordernum,
+    record.subject?.name,
+    record.subject?.code,
+    record.subject?.role,
+    record.state?.current,
+    record.state?.category,
+    record.parties?.debtor_name,
+    record.parties?.debtor_code,
+    record.parties?.creditor_name,
+    record.parties?.creditor_code,
+    record.dvs?.org_name,
+    record.dvs?.dvs_code,
+  ].join(" "));
+}
+
+function toggleFilter(type, value) {
+  if (type === "all") {
+    state.filters.roles.clear();
+    state.filters.states.clear();
+    state.filters.flags.clear();
+    render();
+    return;
+  }
+
+  const target =
+    type === "role"
+      ? state.filters.roles
+      : type === "state"
+        ? state.filters.states
+        : state.filters.flags;
+
+  if (target.has(value)) {
+    target.delete(value);
+  } else {
+    target.add(value);
+  }
+
+  render();
+}
+
+function isKpiActive(item) {
+  if (item.type === "all") {
+    return (
+      state.filters.roles.size === 0 &&
+      state.filters.states.size === 0 &&
+      state.filters.flags.size === 0
+    );
+  }
+
+  if (item.type === "role") return state.filters.roles.has(item.value);
+  if (item.type === "state") return state.filters.states.has(item.value);
+  if (item.type === "flag") return state.filters.flags.has(item.value);
+
+  return false;
+}
+
 function renderSummary() {
-  const records = state.current?.records || [];
-  const changes = state.changes || {};
+  const kpi = state.dashboard?.kpi || {};
 
-  const debtorTotal = records.filter((r) => r.role === "debtor").length;
-  const creditorTotal = records.filter((r) => r.role === "creditor").length;
+  els.summary.innerHTML = KPI_CONFIG.map((item) => {
+    const active = isKpiActive(item) ? " active" : "";
+    return `
+      <button class="summary-card${active}" data-filter-type="${escapeHtml(item.type)}" data-filter-value="${escapeHtml(item.value || "")}">
+        <div class="summary-value">${kpi[item.key] ?? 0}</div>
+        <div class="summary-label">${escapeHtml(item.label)}</div>
+      </button>
+    `;
+  }).join("");
 
-  els.summary.innerHTML = `
-    <div class="summary-card">
-      <div class="summary-value">${records.length}</div>
-      <div class="summary-label">Поточних збігів</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-value">${debtorTotal}</div>
-      <div class="summary-label">Як боржник</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-value">${creditorTotal}</div>
-      <div class="summary-label">Як стягувач</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-value">${changes.added_total ?? 0}</div>
-      <div class="summary-label">Нових з останнього run</div>
+  els.summary.querySelectorAll(".summary-card").forEach((button) => {
+    button.addEventListener("click", () => {
+      toggleFilter(button.dataset.filterType, button.dataset.filterValue || null);
+    });
+  });
+}
+
+function recordMatchesFilters(record) {
+  if (state.filters.roles.size > 0 && !state.filters.roles.has(record.subject?.role)) {
+    return false;
+  }
+
+  if (state.filters.states.size > 0 && !state.filters.states.has(record.state?.category)) {
+    return false;
+  }
+
+  if (state.filters.flags.size > 0) {
+    for (const flag of state.filters.flags) {
+      if (!record.flags?.[flag]) return false;
+    }
+  }
+
+  const q = normalize(state.search).trim();
+  if (q && !recordSearchText(record).includes(q)) {
+    return false;
+  }
+
+  return true;
+}
+
+function filteredRecords() {
+  return (state.dashboard?.records || []).filter(recordMatchesFilters);
+}
+
+function renderActiveFilters() {
+  const chips = [];
+
+  for (const role of state.filters.roles) {
+    chips.push({ type: "role", value: role, label: roleLabel(role) });
+  }
+
+  for (const category of state.filters.states) {
+    chips.push({ type: "state", value: category, label: stateLabel(category) });
+  }
+
+  for (const flag of state.filters.flags) {
+    chips.push({
+      type: "flag",
+      value: flag,
+      label: flag === "is_new_14d" ? "Нові 14 днів" : "Зміни 14 днів",
+    });
+  }
+
+  if (!chips.length) return "";
+
+  return `
+    <div class="filter-chips">
+      ${chips.map((chip) => `
+        <button class="filter-chip" data-type="${escapeHtml(chip.type)}" data-value="${escapeHtml(chip.value)}">
+          ${escapeHtml(chip.label)} ×
+        </button>
+      `).join("")}
     </div>
   `;
 }
 
-function renderRecord(record, extraHtml = "") {
-  const role = record.role;
+function bindFilterChips() {
+  document.querySelectorAll(".filter-chip").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      toggleFilter(chip.dataset.type, chip.dataset.value);
+    });
+  });
+}
 
+function eventLabel(event) {
+  if (event.event_type === "new_case") return "Нове ВП";
+  if (event.event_type === "state_changed") {
+    return `Стан: ${event.old_state || "—"} → ${event.new_state || "—"}`;
+  }
+  if (event.event_type === "details_changed") return "Зміна реквізитів";
+  return event.event_type || "Подія";
+}
+
+function renderTimeline(record) {
+  const events = record.recent_events || record.events || [];
+
+  if (!events.length) return "";
+
+  return `
+    <section class="change-box">
+      <strong>Події</strong>
+      ${events.slice().reverse().map((event) => `
+        <div class="change-row">
+          <div class="label">${escapeHtml(formatDateTime(event.detected_at))}</div>
+          <div>${escapeHtml(eventLabel(event))}</div>
+        </div>
+      `).join("")}
+    </section>
+  `;
+}
+
+function renderRecord(record) {
   return `
     <article class="case-card">
       <div class="case-head">
         <div>
-          <h2 class="case-title">${escapeHtml(record.subject_name || "—")}</h2>
+          <h2 class="case-title">ВП № ${escapeHtml(record.vp_ordernum || "—")}</h2>
           <div class="meta">
-            ID: ${escapeHtml(record.subject_id)} · Код: ${escapeHtml(record.subject_code || "—")}
+            ${escapeHtml(record.subject?.name || "—")} · код ${escapeHtml(record.subject?.code || "—")}
             <br />
-            ВП № ${escapeHtml(record.vp_ordernum || "—")} · Дата відкриття: ${escapeHtml(record.vp_begindate || "—")}
+            Дата відкриття: ${escapeHtml(record.dates?.vp_begin || "—")}
           </div>
         </div>
 
         <div class="badges">
-          <span class="badge ${roleClass(role)}">${escapeHtml(roleLabel(role))}</span>
-          <span class="badge state">${escapeHtml(record.vp_state || "—")}</span>
+          <span class="badge ${record.subject?.role === "debtor" ? "debtor" : "creditor"}">
+            ${escapeHtml(roleLabel(record.subject?.role))}
+          </span>
+          <span class="badge ${stateClass(record.state?.category)}">
+            ${escapeHtml(record.state?.current || "—")}
+          </span>
+          ${record.flags?.is_new_14d ? `<span class="badge creditor">Нове 14д</span>` : ""}
+          ${record.flags?.is_changed_14d ? `<span class="badge state">Зміни 14д</span>` : ""}
         </div>
       </div>
 
       <section class="details">
         <div class="details-grid">
           <div class="label">Боржник</div>
-          <div>${escapeHtml(record.debtor_name || "—")} ${record.debtor_code ? `· ${escapeHtml(record.debtor_code)}` : ""}</div>
+          <div>${escapeHtml(record.parties?.debtor_name || "—")} ${record.parties?.debtor_code ? `· ${escapeHtml(record.parties.debtor_code)}` : ""}</div>
 
           <div class="label">Дата народження боржника</div>
-          <div>${escapeHtml(record.debtor_birthdate || "—")}</div>
+          <div>${escapeHtml(record.parties?.debtor_birthdate || "—")}</div>
 
           <div class="label">Стягувач</div>
-          <div>${escapeHtml(record.creditor_name || "—")} ${record.creditor_code ? `· ${escapeHtml(record.creditor_code)}` : ""}</div>
+          <div>${escapeHtml(record.parties?.creditor_name || "—")} ${record.parties?.creditor_code ? `· ${escapeHtml(record.parties.creditor_code)}` : ""}</div>
 
-          <div class="label">Орган ДВС</div>
-          <div>${escapeHtml(record.org_name || "—")}</div>
+          <div class="label">Орган / виконавець</div>
+          <div>${escapeHtml(record.dvs?.org_name || "—")}</div>
 
           <div class="label">Код ДВС</div>
-          <div>${escapeHtml(record.dvs_code || "—")}</div>
+          <div>${escapeHtml(record.dvs?.dvs_code || "—")}</div>
+
+          <div class="label">Перше виявлення</div>
+          <div>${escapeHtml(formatDateTime(record.dates?.first_seen))}</div>
+
+          <div class="label">Остання зміна</div>
+          <div>${escapeHtml(formatDateTime(record.dates?.last_changed))}</div>
         </div>
       </section>
 
-      ${extraHtml}
+      ${renderTimeline(record)}
     </article>
   `;
 }
 
-function renderCurrent() {
-  const records = filterRecords(state.current?.records || []);
+function renderRecords() {
+  const records = filteredRecords();
 
   if (!records.length) {
-    els.content.innerHTML = `<div class="empty">Нічого не знайдено.</div>`;
-    return;
-  }
-
-  els.content.innerHTML = records.map((record) => renderRecord(record)).join("");
-}
-
-function renderAdded() {
-  const records = filterRecords(state.changes?.added || []);
-
-  if (!records.length) {
-    els.content.innerHTML = `<div class="empty">Нових записів немає.</div>`;
-    return;
-  }
-
-  els.content.innerHTML = records.map((record) => renderRecord(record)).join("");
-}
-
-function renderChanged() {
-  const stateChanged = state.changes?.state_changed || [];
-  const detailsChanged = state.changes?.details_changed || [];
-
-  const items = [
-    ...stateChanged.map((item) => ({ type: "state", ...item })),
-    ...detailsChanged.map((item) => ({ type: "details", ...item })),
-  ];
-
-  const q = normalize(state.search).trim();
-
-  const filtered = !q
-    ? items
-    : items.filter((item) => {
-        const record = item.current || {};
-        return recordSearchText(record).includes(q);
-      });
-
-  if (!filtered.length) {
-    els.content.innerHTML = `<div class="empty">Змін немає.</div>`;
-    return;
-  }
-
-  els.content.innerHTML = filtered.map((item) => {
-    if (item.type === "state") {
-      const extra = `
-        <section class="change-box">
-          <strong>Зміна статусу ВП</strong>
-          <div class="change-row">
-            <div class="label">Було</div>
-            <div>${escapeHtml(item.previous?.vp_state || "—")}</div>
-          </div>
-          <div class="change-row">
-            <div class="label">Стало</div>
-            <div>${escapeHtml(item.current?.vp_state || "—")}</div>
-          </div>
-        </section>
-      `;
-
-      return renderRecord(item.current, extra);
-    }
-
-    const changes = item.changes || {};
-    const rows = Object.entries(changes).map(([field, value]) => `
-      <div class="change-row">
-        <div class="label">${escapeHtml(field)}</div>
-        <div>
-          <span>${escapeHtml(value.old || "—")}</span>
-          →
-          <strong>${escapeHtml(value.new || "—")}</strong>
-        </div>
-      </div>
-    `).join("");
-
-    const extra = `
-      <section class="change-box">
-        <strong>Зміна деталей</strong>
-        ${rows}
-      </section>
+    els.content.innerHTML = `
+      ${renderActiveFilters()}
+      <div class="empty">Нічого не знайдено.</div>
     `;
+    bindFilterChips();
+    return;
+  }
 
-    return renderRecord(item.current, extra);
-  }).join("");
+  els.content.innerHTML = `
+    ${renderActiveFilters()}
+    ${records.map(renderRecord).join("")}
+  `;
+
+  bindFilterChips();
 }
 
 function render() {
   renderSummary();
 
-  if (state.current?.generated_at) {
-    const partial = state.current?.is_partial ? " · partial snapshot" : "";
-    els.updatedAt.textContent = `Оновлення: ${formatDateTime(state.current.generated_at)}${partial}`;
-  }
+  const generatedAt = state.dashboard?.generated_at;
+  const source = state.dashboard?.source || {};
 
-  if (state.current?.is_partial) {
-    els.statusBox.classList.remove("hidden");
-    els.statusBox.textContent =
-      "Увага: джерельний ZIP має CRC-помилку, тому snapshot позначено як partial. REMOVED-зміни тимчасово не враховуються.";
-  } else {
-    els.statusBox.classList.add("hidden");
-  }
+  els.updatedAt.textContent = generatedAt
+    ? `Оновлення: ${formatDateTime(generatedAt)}`
+    : "Оновлення: —";
 
-  if (state.tab === "current") renderCurrent();
-  if (state.tab === "added") renderAdded();
-  if (state.tab === "changed") renderChanged();
+  els.statusBox.classList.remove("hidden");
+  els.statusBox.textContent =
+    `Зчитано рядків: ${source.rows_scanned?.toLocaleString("uk-UA") || "—"} · ` +
+    `Збігів: ${source.matched_records_total || "—"} · ` +
+    `Reader: ${source.reader || "—"}`;
+
+  renderRecords();
 }
 
 async function loadJson(path) {
   const response = await fetch(path, { cache: "no-store" });
+
   if (!response.ok) {
     throw new Error(`Не вдалося завантажити ${path}: ${response.status}`);
   }
+
   return response.json();
 }
 
 async function init() {
   try {
-    const [current, changes] = await Promise.all([
-      loadJson("./data/current.json"),
-      loadJson("./data/changes.json"),
-    ]);
-
-    state.current = current;
-    state.changes = changes;
-
+    state.dashboard = await loadJson("./data/dashboard.json");
     render();
   } catch (error) {
     els.statusBox.classList.remove("hidden");
@@ -285,15 +374,6 @@ async function init() {
 els.searchInput.addEventListener("input", (event) => {
   state.search = event.target.value;
   render();
-});
-
-els.tabs.forEach((button) => {
-  button.addEventListener("click", () => {
-    els.tabs.forEach((btn) => btn.classList.remove("active"));
-    button.classList.add("active");
-    state.tab = button.dataset.tab;
-    render();
-  });
 });
 
 init();
