@@ -217,13 +217,28 @@ def main() -> None:
         for record in current.get("records", [])
     ]
 
-    records.sort(
-        key=lambda item: (
-            item["state"]["category"] != "active",
-            item["subject"]["name"] or "",
-            item["vp_ordernum"] or "",
-        )
-    )
+def parse_vp_begin_for_sort(value: object) -> datetime:
+    text = str(value or "").strip()
+
+    if not text:
+        return datetime.min.replace(tzinfo=timezone.utc)
+
+    for fmt in ("%d.%m.%Y %H:%M:%S", "%d.%m.%Y"):
+        try:
+            return datetime.strptime(text, fmt).replace(tzinfo=timezone.utc)
+        except ValueError:
+            pass
+
+    return datetime.min.replace(tzinfo=timezone.utc)
+
+
+records.sort(
+    key=lambda item: (
+        parse_vp_begin_for_sort(item["dates"]["vp_begin"]),
+        item["vp_ordernum"] or "",
+    ),
+    reverse=True,
+)
 
     dashboard = {
         "schema_version": 1,
