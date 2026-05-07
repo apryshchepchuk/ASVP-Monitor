@@ -384,7 +384,17 @@ h1 {
     font-size: 23px;
   }
 
-  .subject-filters {
+  .badges {
+    justify-content: flex-start;
+    max-width: none;
+  }
+
+  .details-grid,
+  .change-row {
+    grid-template-columns: 1fr;
+  }
+
+    .subject-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -414,15 +424,6 @@ h1 {
   box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.14);
 }
 
-  .badges {
-    justify-content: flex-start;
-    max-width: none;
-  }
-
-  .details-grid,
-  .change-row {
-    grid-template-columns: 1fr;
-  }
 
   h1 {
     font-size: 28px;
