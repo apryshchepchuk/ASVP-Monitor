@@ -5,6 +5,7 @@ const state = {
     roles: new Set(),
     states: new Set(),
     flags: new Set(),
+    subjects: new Set(),
   },
 };
 
@@ -136,7 +137,9 @@ function toggleFilter(type, value) {
       ? state.filters.roles
       : type === "state"
         ? state.filters.states
-        : state.filters.flags;
+        : type === "subject"
+          ? state.filters.subjects
+          : state.filters.flags;
 
   if (target.has(value)) {
     target.delete(value);
@@ -192,6 +195,13 @@ function recordMatchesFilters(record) {
     return false;
   }
 
+  if (
+  state.filters.subjects.size > 0 &&
+  !state.filters.subjects.has(record.subject?.id)
+) {
+  return false;
+}
+  
   if (state.filters.flags.size > 0) {
     for (const flag of state.filters.flags) {
       if (!record.flags?.[flag]) return false;
@@ -210,8 +220,53 @@ function filteredRecords() {
   return (state.dashboard?.records || []).filter(recordMatchesFilters);
 }
 
+function renderSubjectFilters() {
+  const records = state.dashboard?.records || [];
+  const subjects = new Map();
+
+  for (const record of records) {
+    const id = record.subject?.id;
+    const name = record.subject?.name;
+
+    if (!id || !name) continue;
+
+    subjects.set(id, name);
+  }
+
+  if (!subjects.size) return "";
+
+  return `
+    <div class="subject-filters">
+      ${Array.from(subjects.entries()).map(([id, name]) => {
+        const active = state.filters.subjects.has(id) ? " is-active" : "";
+
+        return `
+          <button class="subject-filter${active}" data-subject-id="${escapeHtml(id)}">
+            ${escapeHtml(name)}
+          </button>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
 function renderActiveFilters() {
   const chips = [];
+  const subjects = new Map();
+
+for (const record of state.dashboard?.records || []) {
+  if (record.subject?.id && record.subject?.name) {
+    subjects.set(record.subject.id, record.subject.name);
+  }
+}
+
+for (const subjectId of state.filters.subjects) {
+  chips.push({
+    type: "subject",
+    value: subjectId,
+    label: subjects.get(subjectId) || subjectId,
+  });
+}
 
   for (const role of state.filters.roles) {
     chips.push({ type: "role", value: role, label: roleLabel(role) });
@@ -332,6 +387,14 @@ function renderRecord(record) {
   `;
 }
 
+function bindSubjectFilters() {
+  document.querySelectorAll(".subject-filter").forEach((button) => {
+    button.addEventListener("click", () => {
+      toggleFilter("subject", button.dataset.subjectId);
+    });
+  });
+}
+
 function renderRecords() {
   const records = filteredRecords();
 
@@ -340,6 +403,11 @@ function renderRecords() {
       ${renderActiveFilters()}
       <div class="empty">Нічого не знайдено.</div>
     `;
+    els.content.innerHTML = `
+  ${renderSubjectFilters()}
+  ${renderActiveFilters()}
+  <div class="empty">Нічого не знайдено.</div>
+`;
     bindFilterChips();
     return;
   }
@@ -348,8 +416,13 @@ function renderRecords() {
     ${renderActiveFilters()}
     ${records.map(renderRecord).join("")}
   `;
-
+els.content.innerHTML = `
+  ${renderSubjectFilters()}
+  ${renderActiveFilters()}
+  ${records.map(renderRecord).join("")}
+`;
   bindFilterChips();
+  bindSubjectFilters();
 }
 
 function render() {
