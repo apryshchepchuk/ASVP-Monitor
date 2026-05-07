@@ -5,70 +5,102 @@
       "type": "company",
       "name": "АТ \"Фармак\"",
       "code": "00481198",
-      "roles": ["debtor", "creditor"]
+      "roles": [
+        "debtor",
+        "creditor"
+      ]
     },
     {
       "id": "person_kostiuk_1986",
       "type": "person",
       "name": "КОСТЮК ВОЛОДИМИР ГРИГОРОВИЧ",
       "birthdate": "1986-04-04",
-      "roles": ["debtor", "creditor"]
+      "roles": [
+        "debtor",
+        "creditor"
+      ],
+      "enabled": false,
+      "updated_at": "2026-05-07T06:32:03.905546+00:00"
     },
     {
       "id": "person_pershko_1978",
       "type": "person",
       "name": "ПЕРШКО ОЛЕНА ВОЛОДИМИРІВНА",
       "birthdate": "1978-01-13",
-      "roles": ["debtor", "creditor"]
+      "roles": [
+        "debtor",
+        "creditor"
+      ]
     },
     {
       "id": "edr_31816235",
       "type": "company",
       "name": "ТОВ \"БАДМ\"",
       "code": "31816235",
-      "roles": ["debtor", "creditor"]
+      "roles": [
+        "debtor",
+        "creditor"
+      ]
     },
     {
       "id": "edr_21947206",
       "type": "company",
       "name": "ТОВ \"ВЕНТА. ЛТД\"",
       "code": "21947206",
-      "roles": ["debtor", "creditor"]
+      "roles": [
+        "debtor",
+        "creditor"
+      ]
     },
     {
       "id": "edr_21642228",
       "type": "company",
       "name": "СП \"ОПТІМА-ФАРМ, ЛТД\"",
       "code": "21642228",
-      "roles": ["debtor", "creditor"]
+      "roles": [
+        "debtor",
+        "creditor"
+      ]
     },
     {
       "id": "edr_32069917",
       "type": "company",
       "name": "ТОВ \"КОМОДОР\"",
       "code": "32069917",
-      "roles": ["debtor", "creditor"]
+      "roles": [
+        "debtor",
+        "creditor"
+      ]
     },
     {
       "id": "edr_42199138",
       "type": "company",
       "name": "ТОВ \"ПРЕДСТАВНИЦТВО БАУМ ФАРМ ГМБХ\"",
       "code": "42199138",
-      "roles": ["debtor", "creditor"]
+      "roles": [
+        "debtor",
+        "creditor"
+      ]
     },
     {
       "id": "edr_21738610",
       "type": "company",
       "name": "ТЗОВ ФІРМА \"ВОЛИНЬФАРМ\"",
       "code": "21738610",
-      "roles": ["debtor", "creditor"]
+      "roles": [
+        "debtor",
+        "creditor"
+      ]
     },
     {
       "id": "edr_45871275",
       "type": "company",
       "name": "ТОВ \"СМ-ФАРМ\"",
       "code": "45871275",
-      "roles": ["debtor", "creditor"]
+      "roles": [
+        "debtor",
+        "creditor"
+      ]
     }
   ]
 }
