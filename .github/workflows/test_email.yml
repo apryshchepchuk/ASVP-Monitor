@@ -1,0 +1,86 @@
+name: Test ASVP Email Digest
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Create sample changes
+        run: |
+          mkdir -p docs/data
+
+          cat > docs/data/changes.json <<'JSON'
+          {
+            "is_initial_snapshot": false,
+            "added": [
+              {
+                "vp_ordernum": "77777777",
+                "subject_name": "ТОВ \"ТЕСТОВИЙ СУБʼЄКТ\"",
+                "role": "creditor",
+                "vp_state": "Примусове виконання",
+                "debtor_name": "ТОВ \"ТЕСТ-БОРЖНИК\"",
+                "creditor_name": "ТОВ \"ТЕСТОВИЙ СУБʼЄКТ\"",
+                "org_name": "Приватний виконавець Тестовий Т. Т."
+              }
+            ],
+            "state_changed": [
+              {
+                "previous": {
+                  "vp_state": "Примусове виконання"
+                },
+                "current": {
+                  "vp_ordernum": "88888888",
+                  "subject_name": "ТОВ \"ТЕСТОВИЙ СУБʼЄКТ 2\"",
+                  "role": "debtor",
+                  "vp_state": "Завершено",
+                  "debtor_name": "ТОВ \"ТЕСТОВИЙ СУБʼЄКТ 2\"",
+                  "creditor_name": "АТ \"ТЕСТ-СТЯГУВАЧ\""
+                }
+              }
+            ],
+            "details_changed": [
+              {
+                "current": {
+                  "vp_ordernum": "99999999",
+                  "subject_name": "ФОП Тестовий І. І.",
+                  "role": "debtor"
+                },
+                "changes": {
+                  "org_name": {
+                    "old": "Старий відділ ДВС",
+                    "new": "Новий відділ ДВС"
+                  },
+                  "dvs_code": {
+                    "old": "11111111",
+                    "new": "22222222"
+                  }
+                }
+              }
+            ]
+          }
+          JSON
+
+      - name: Send test email digest
+        env:
+          EMAIL_ENABLED: "true"
+          EMAIL_FORCE: "true"
+          DASHBOARD_URL: ${{ vars.DASHBOARD_URL }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: |
+          python scripts/send_email_digest.py
