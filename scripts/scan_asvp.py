@@ -322,6 +322,10 @@ def scan_csv_from_zip_with_unzip(
         )
 
         headers = next(reader)
+        print("CSV HEADERS:")
+        for i, header in enumerate(headers):
+            print(f"{i:03d}: {header}")
+        
         idx = build_indexes(headers)
 
         print(f"Headers: {headers}")
