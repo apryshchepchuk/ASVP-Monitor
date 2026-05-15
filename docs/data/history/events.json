@@ -1,6 +1,38 @@
 {
   "schema_version": 1,
-  "events": [],
-  "updated_at": "2026-05-14T07:35:48.189543+00:00",
-  "events_total": 0
+  "events": [
+    {
+      "event_id": "85f0a7db76049ccd1782279949c54a516af4ac90",
+      "event_type": "state_changed",
+      "detected_at": "2026-05-15T07:58:43.461228+00:00",
+      "match_key": "52702413|creditor|edr_21642228",
+      "vp_ordernum": "52702413",
+      "subject_id": "edr_21642228",
+      "subject_name": "СП \"ОПТІМА-ФАРМ, ЛТД\"",
+      "subject_code": "21642228",
+      "role": "creditor",
+      "old_state": "Відкрито",
+      "new_state": "Завершено",
+      "record": {
+        "match_key": "52702413|creditor|edr_21642228",
+        "subject_id": "edr_21642228",
+        "subject_type": "company",
+        "subject_name": "СП \"ОПТІМА-ФАРМ, ЛТД\"",
+        "subject_code": "21642228",
+        "role": "creditor",
+        "vp_ordernum": "52702413",
+        "vp_begindate": "03.10.2016 00:00:00",
+        "vp_state": "Завершено",
+        "debtor_name": "ТОВ \"Лерс\"",
+        "debtor_birthdate": "",
+        "debtor_code": "20201195",
+        "creditor_name": "Спільне українсько-естонське підприємство у формі ТОВ \"Оптіма-Фарм,ЛТД\"",
+        "creditor_code": "21642228",
+        "org_name": "Павлоградський відділ державної виконавчої служби у Павлоградському районі Дніпропетровської області Дніпровського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "44896461"
+      }
+    }
+  ],
+  "updated_at": "2026-05-15T07:58:43.662099+00:00",
+  "events_total": 1
 }
