@@ -1,53 +1,13 @@
 {
-  "generated_at": "2026-05-15T07:58:43.622466+00:00",
+  "generated_at": "2026-05-16T06:48:55.236588+00:00",
   "current_partial": false,
   "previous_partial": false,
   "added_total": 0,
   "removed_total": 0,
-  "state_changed_total": 1,
+  "state_changed_total": 0,
   "details_changed_total": 0,
   "added": [],
   "removed": [],
-  "state_changed": [
-    {
-      "match_key": "52702413|creditor|edr_21642228",
-      "previous": {
-        "match_key": "52702413|creditor|edr_21642228",
-        "subject_id": "edr_21642228",
-        "subject_type": "company",
-        "subject_name": "СП \"ОПТІМА-ФАРМ, ЛТД\"",
-        "subject_code": "21642228",
-        "role": "creditor",
-        "vp_ordernum": "52702413",
-        "vp_begindate": "03.10.2016 00:00:00",
-        "vp_state": "Відкрито",
-        "debtor_name": "ТОВ \"Лерс\"",
-        "debtor_birthdate": "",
-        "debtor_code": "20201195",
-        "creditor_name": "Спільне українсько-естонське підприємство у формі ТОВ \"Оптіма-Фарм,ЛТД\"",
-        "creditor_code": "21642228",
-        "org_name": "Павлоградський відділ державної виконавчої служби у Павлоградському районі Дніпропетровської області Дніпровського міжрегіонального управління Міністерства юстиції України",
-        "dvs_code": "44896461"
-      },
-      "current": {
-        "match_key": "52702413|creditor|edr_21642228",
-        "subject_id": "edr_21642228",
-        "subject_type": "company",
-        "subject_name": "СП \"ОПТІМА-ФАРМ, ЛТД\"",
-        "subject_code": "21642228",
-        "role": "creditor",
-        "vp_ordernum": "52702413",
-        "vp_begindate": "03.10.2016 00:00:00",
-        "vp_state": "Завершено",
-        "debtor_name": "ТОВ \"Лерс\"",
-        "debtor_birthdate": "",
-        "debtor_code": "20201195",
-        "creditor_name": "Спільне українсько-естонське підприємство у формі ТОВ \"Оптіма-Фарм,ЛТД\"",
-        "creditor_code": "21642228",
-        "org_name": "Павлоградський відділ державної виконавчої служби у Павлоградському районі Дніпропетровської області Дніпровського міжрегіонального управління Міністерства юстиції України",
-        "dvs_code": "44896461"
-      }
-    }
-  ],
+  "state_changed": [],
   "details_changed": []
 }
