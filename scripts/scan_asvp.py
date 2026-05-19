@@ -84,33 +84,45 @@ class PrefixRawStream(io.RawIOBase):
 
 
 def download_zip_to_tempfile() -> Path:
-    max_attempts = 3
+    max_attempts = 4
+
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept": "application/zip,application/octet-stream,*/*",
+        "Accept-Language": "uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Referer": "https://data.gov.ua/dataset/6c0eb6c0-d19a-4bb0-869b-3280df46800a",
+        "Connection": "keep-alive",
+    }
 
     for attempt in range(1, max_attempts + 1):
         temp = tempfile.NamedTemporaryFile(delete=False, suffix=".zip")
         temp_path = Path(temp.name)
 
-        print(f"Downloading ASVP ZIP, attempt {attempt}/{max_attempts}: {temp_path}")
+        print(
+            f"Downloading ASVP ZIP, attempt {attempt}/{max_attempts}: {temp_path}",
+            flush=True,
+        )
 
         try:
-            headers = {
-                "User-Agent": (
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/124.0 Safari/537.36"
-                ),
-                "Accept": "application/zip,application/octet-stream,*/*",
-                "Accept-Language": "uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7",
-                "Connection": "keep-alive",
-            }
-
             with requests.get(
                 ZIP_URL,
                 stream=True,
-                timeout=600,
+                timeout=900,
                 headers=headers,
+                allow_redirects=True,
             ) as response:
-                
+                print(f"Download response status: {response.status_code}", flush=True)
+                print(f"Content-Type: {response.headers.get('content-type', '')}", flush=True)
+                print(f"Content-Length: {response.headers.get('content-length', '')}", flush=True)
+
+                if response.status_code != 200:
+                    preview = response.text[:500] if response.text else ""
+                    print(f"Error response preview: {preview}", flush=True)
+
                 response.raise_for_status()
 
                 total = 0
@@ -123,23 +135,28 @@ def download_zip_to_tempfile() -> Path:
                     total += len(chunk)
 
                     if total % (1024 * 1024 * 500) < CHUNK_SIZE:
-                        print(f"Downloaded: {total / 1024 / 1024:.1f} MB")
+                        print(f"Downloaded: {total / 1024 / 1024:.1f} MB", flush=True)
 
             temp.close()
 
-            print(f"Download complete: {temp_path.stat().st_size / 1024 / 1024:.1f} MB")
+            print(
+                f"Download complete: {temp_path.stat().st_size / 1024 / 1024:.1f} MB",
+                flush=True,
+            )
             return temp_path
 
         except Exception as exc:
             temp.close()
             temp_path.unlink(missing_ok=True)
 
-            print(f"Download attempt {attempt} failed: {exc}")
+            print(f"Download attempt {attempt} failed: {exc}", flush=True)
 
             if attempt >= max_attempts:
                 raise
 
-            time.sleep(60 * attempt)
+            sleep_seconds = 90 * attempt
+            print(f"Sleeping {sleep_seconds} seconds before retry...", flush=True)
+            time.sleep(sleep_seconds)
 
     raise RuntimeError("Download failed")
 
@@ -339,11 +356,6 @@ def scan_csv_from_zip_with_unzip(
         )
 
         headers = next(reader)
-        print("CSV HEADERS:")
-        for i, header in enumerate(headers):
-            print(f"{i:03d}: {header}")
-        
-        idx = build_indexes(headers)
 
         print(f"Headers: {headers}")
 
