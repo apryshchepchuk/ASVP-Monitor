@@ -93,7 +93,24 @@ def download_zip_to_tempfile() -> Path:
         print(f"Downloading ASVP ZIP, attempt {attempt}/{max_attempts}: {temp_path}")
 
         try:
-            with requests.get(ZIP_URL, stream=True, timeout=600) as response:
+            headers = {
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/124.0 Safari/537.36"
+                ),
+                "Accept": "application/zip,application/octet-stream,*/*",
+                "Accept-Language": "uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7",
+                "Connection": "keep-alive",
+            }
+
+            with requests.get(
+                ZIP_URL,
+                stream=True,
+                timeout=600,
+                headers=headers,
+            ) as response:
+                
                 response.raise_for_status()
 
                 total = 0
@@ -122,7 +139,7 @@ def download_zip_to_tempfile() -> Path:
             if attempt >= max_attempts:
                 raise
 
-            time.sleep(20 * attempt)
+            time.sleep(60 * attempt)
 
     raise RuntimeError("Download failed")
 
