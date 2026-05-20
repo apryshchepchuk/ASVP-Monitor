@@ -1,0 +1,54 @@
+name: Test NAIS ASVP Download
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-nais-download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Test NAIS page and ZIP link
+        run: |
+          set -e
+
+          PAGE_URL="https://nais.gov.ua/m/informatsiya-z-avtomatizovanoi-sistemi-vikonavchogo-provadjennya-595"
+
+          echo "Fetching NAIS page..."
+          curl -L --fail --silent --show-error "$PAGE_URL" -o page.html
+
+          echo "Extracting ZIP links..."
+          grep -oE 'https://nais\.gov\.ua/files/general/[^"]+\.zip|/files/general/[^"]+\.zip' page.html | sort -u > links.txt || true
+
+          echo "Found links:"
+          cat links.txt
+
+          ZIP_PATH=$(grep '28-ex_csv_asvp' links.txt | head -n 1 || true)
+
+          if [ -z "$ZIP_PATH" ]; then
+            echo "Could not find 28-ex_csv_asvp ZIP link"
+            exit 1
+          fi
+
+          if echo "$ZIP_PATH" | grep -q '^/'; then
+            ZIP_URL="https://nais.gov.ua$ZIP_PATH"
+          else
+            ZIP_URL="$ZIP_PATH"
+          fi
+
+          echo "ZIP_URL=$ZIP_URL"
+
+          echo "Testing headers..."
+          curl -L --fail --silent --show-error --head "$ZIP_URL"
+
+          echo "Testing first 5 MB download..."
+          curl -L --fail --silent --show-error \
+            --range 0-5242879 \
+            "$ZIP_URL" \
+            -o sample.zip
+
+          ls -lh sample.zip
+
+          echo "Testing zip listing..."
+          unzip -l sample.zip || true
