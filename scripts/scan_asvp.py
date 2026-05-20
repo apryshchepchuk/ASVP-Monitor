@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import csv
 import io
+import re
 import subprocess
 import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urljoin
 
 import requests
 
@@ -20,11 +22,22 @@ from common import (
     save_json,
 )
 
-ZIP_URL = (
+
+DATA_GOV_ZIP_URL = (
     "https://data.gov.ua/dataset/"
     "22aef563-3e87-4ed9-92e8-d764dc02f426/"
     "resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/"
     "download/30-ex_csv_asvp.zip"
+)
+
+DATA_GOV_REFERER = (
+    "https://data.gov.ua/dataset/"
+    "6c0eb6c0-d19a-4bb0-869b-3280df46800a"
+)
+
+NAIS_PAGE_URL = (
+    "https://nais.gov.ua/m/"
+    "informatsiya-z-avtomatizovanoi-sistemi-vikonavchogo-provadjennya-595"
 )
 
 WATCHLIST_PATH = CONFIG_DIR / "watchlist.json"
@@ -83,9 +96,7 @@ class PrefixRawStream(io.RawIOBase):
         return len(data)
 
 
-def download_zip_to_tempfile() -> Path:
-    max_attempts = 4
-
+def build_headers(referer: str = "") -> dict[str, str]:
     headers = {
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -94,36 +105,72 @@ def download_zip_to_tempfile() -> Path:
         ),
         "Accept": "application/zip,application/octet-stream,*/*",
         "Accept-Language": "uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7",
-        "Referer": "https://data.gov.ua/dataset/6c0eb6c0-d19a-4bb0-869b-3280df46800a",
         "Connection": "keep-alive",
     }
+
+    if referer:
+        headers["Referer"] = referer
+
+    return headers
+
+
+def is_html_response(response: requests.Response) -> bool:
+    content_type = response.headers.get("content-type", "").lower()
+    return "text/html" in content_type or "text/plain" in content_type
+
+
+def print_response_debug(response: requests.Response) -> None:
+    print(f"Download response status: {response.status_code}", flush=True)
+    print(f"Content-Type: {response.headers.get('content-type', '')}", flush=True)
+    print(f"Content-Length: {response.headers.get('content-length', '')}", flush=True)
+
+    if response.status_code != 200 or is_html_response(response):
+        try:
+            preview = response.text[:700]
+        except Exception:
+            preview = ""
+
+        if preview:
+            print(f"Error response preview: {preview}", flush=True)
+
+
+def download_url_to_tempfile(
+    *,
+    source_name: str,
+    url: str,
+    referer: str,
+    max_attempts: int,
+    sleep_base_seconds: int,
+) -> tuple[Path, dict[str, Any]]:
+    headers = build_headers(referer)
 
     for attempt in range(1, max_attempts + 1):
         temp = tempfile.NamedTemporaryFile(delete=False, suffix=".zip")
         temp_path = Path(temp.name)
 
         print(
-            f"Downloading ASVP ZIP, attempt {attempt}/{max_attempts}: {temp_path}",
+            f"Downloading ASVP ZIP from {source_name}, "
+            f"attempt {attempt}/{max_attempts}: {temp_path}",
             flush=True,
         )
+        print(f"URL: {url}", flush=True)
 
         try:
             with requests.get(
-                ZIP_URL,
+                url,
                 stream=True,
                 timeout=900,
                 headers=headers,
                 allow_redirects=True,
             ) as response:
-                print(f"Download response status: {response.status_code}", flush=True)
-                print(f"Content-Type: {response.headers.get('content-type', '')}", flush=True)
-                print(f"Content-Length: {response.headers.get('content-length', '')}", flush=True)
-
-                if response.status_code != 200:
-                    preview = response.text[:500] if response.text else ""
-                    print(f"Error response preview: {preview}", flush=True)
+                print_response_debug(response)
 
                 response.raise_for_status()
+
+                if is_html_response(response):
+                    raise RuntimeError(
+                        f"{source_name} returned HTML/text instead of ZIP"
+                    )
 
                 total = 0
 
@@ -135,30 +182,140 @@ def download_zip_to_tempfile() -> Path:
                     total += len(chunk)
 
                     if total % (1024 * 1024 * 500) < CHUNK_SIZE:
-                        print(f"Downloaded: {total / 1024 / 1024:.1f} MB", flush=True)
+                        print(
+                            f"Downloaded from {source_name}: "
+                            f"{total / 1024 / 1024:.1f} MB",
+                            flush=True,
+                        )
 
             temp.close()
 
+            size_mb = temp_path.stat().st_size / 1024 / 1024
+
             print(
-                f"Download complete: {temp_path.stat().st_size / 1024 / 1024:.1f} MB",
+                f"Download complete from {source_name}: {size_mb:.1f} MB",
                 flush=True,
             )
-            return temp_path
+
+            if size_mb < 100:
+                raise RuntimeError(
+                    f"Downloaded file is unexpectedly small: {size_mb:.1f} MB"
+                )
+
+            return temp_path, {
+                "source_name": source_name,
+                "source_url": url,
+                "download_size_mb": round(size_mb, 1),
+            }
 
         except Exception as exc:
             temp.close()
             temp_path.unlink(missing_ok=True)
 
-            print(f"Download attempt {attempt} failed: {exc}", flush=True)
+            print(
+                f"Download attempt {attempt}/{max_attempts} "
+                f"from {source_name} failed: {exc}",
+                flush=True,
+            )
 
             if attempt >= max_attempts:
                 raise
 
-            sleep_seconds = 90 * attempt
-            print(f"Sleeping {sleep_seconds} seconds before retry...", flush=True)
+            sleep_seconds = sleep_base_seconds * attempt
+            print(
+                f"Sleeping {sleep_seconds} seconds before retry...",
+                flush=True,
+            )
             time.sleep(sleep_seconds)
 
-    raise RuntimeError("Download failed")
+    raise RuntimeError(f"Download failed from {source_name}")
+
+
+def find_nais_zip_url() -> str:
+    print(f"Fetching NAIS page: {NAIS_PAGE_URL}", flush=True)
+
+    response = requests.get(
+        NAIS_PAGE_URL,
+        timeout=90,
+        headers=build_headers("https://nais.gov.ua/"),
+        allow_redirects=True,
+    )
+
+    print(f"NAIS page status: {response.status_code}", flush=True)
+    response.raise_for_status()
+
+    html = response.text
+
+    links = re.findall(
+        r'(?:https://nais\.gov\.ua)?/files/general/[^"\']+\.zip',
+        html,
+    )
+
+    normalized_links = sorted({
+        urljoin("https://nais.gov.ua", link)
+        for link in links
+    })
+
+    if not normalized_links:
+        raise RuntimeError("Could not find ZIP links on NAIS page")
+
+    print("NAIS ZIP links found:", flush=True)
+    for link in normalized_links:
+        print(f"  {link}", flush=True)
+
+    current_links = [
+        link
+        for link in normalized_links
+        if "/files/general/202" in link
+    ]
+
+    selected = (current_links or normalized_links)[-1]
+
+    print(f"Selected NAIS ZIP URL: {selected}", flush=True)
+    return selected
+
+
+def download_zip_to_tempfile() -> tuple[Path, dict[str, Any]]:
+    errors: list[str] = []
+
+    try:
+        return download_url_to_tempfile(
+            source_name="data.gov.ua",
+            url=DATA_GOV_ZIP_URL,
+            referer=DATA_GOV_REFERER,
+            max_attempts=2,
+            sleep_base_seconds=45,
+        )
+    except Exception as exc:
+        message = f"data.gov.ua failed: {exc}"
+        print(message, flush=True)
+        errors.append(message)
+
+    try:
+        nais_zip_url = find_nais_zip_url()
+
+        zip_path, source_info = download_url_to_tempfile(
+            source_name="nais.gov.ua",
+            url=nais_zip_url,
+            referer=NAIS_PAGE_URL,
+            max_attempts=3,
+            sleep_base_seconds=45,
+        )
+
+        source_info["fallback_after"] = "data.gov.ua"
+        source_info["download_errors"] = errors
+
+        return zip_path, source_info
+
+    except Exception as exc:
+        message = f"nais.gov.ua failed: {exc}"
+        print(message, flush=True)
+        errors.append(message)
+
+    raise RuntimeError(
+        "All ASVP ZIP download sources failed: "
+        + " | ".join(errors)
+    )
 
 
 def get_csv_name_with_unzip(zip_path: Path) -> str:
@@ -305,8 +462,10 @@ def find_matches(
 
 
 def scan_csv_from_zip_with_unzip(
+    *,
     zip_path: Path,
     watch: dict[str, Any],
+    source_info: dict[str, Any],
 ) -> dict[str, Any]:
     records: dict[str, dict[str, Any]] = {}
     warnings: list[str] = []
@@ -356,8 +515,10 @@ def scan_csv_from_zip_with_unzip(
         )
 
         headers = next(reader)
+        idx = build_indexes(headers)
 
-        print(f"Headers: {headers}")
+        print(f"CSV columns: {len(headers)}")
+        print(f"Required columns found: {', '.join(REQUIRED_COLUMNS)}")
 
         for row in reader:
             rows_scanned += 1
@@ -407,7 +568,9 @@ def scan_csv_from_zip_with_unzip(
 
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "source_url": ZIP_URL,
+        "source_name": source_info.get("source_name"),
+        "source_url": source_info.get("source_url"),
+        "source_info": source_info,
         "csv_file_name": csv_file_name,
         "reader": "unzip -p",
         "rows_scanned": rows_scanned,
@@ -433,17 +596,20 @@ def main() -> None:
     print(f"Company codes: {len(watch['companies_by_code'])}")
     print(f"Person names: {len(watch['persons_by_name'])}")
 
-    zip_path = download_zip_to_tempfile()
+    zip_path, source_info = download_zip_to_tempfile()
 
     try:
         snapshot = scan_csv_from_zip_with_unzip(
             zip_path=zip_path,
             watch=watch,
+            source_info=source_info,
         )
 
         save_json(OUTPUT_PATH, snapshot)
 
         print(f"Saved current snapshot: {OUTPUT_PATH}")
+        print(f"Source used: {snapshot.get('source_name')}")
+        print(f"Source URL: {snapshot.get('source_url')}")
         print(f"Rows scanned: {snapshot['rows_scanned']:,}")
         print(f"Matched records: {snapshot['matched_records_total']:,}")
         print(f"Partial snapshot: {snapshot['is_partial']}")
