@@ -24,10 +24,10 @@ jobs:
           echo "Found links:"
           cat links.txt
 
-          ZIP_PATH=$(grep '28-ex_csv_asvp' links.txt | head -n 1 || true)
+          ZIP_PATH=$(grep '/files/general/2026/' links.txt | sort | tail -n 1 || true)
 
           if [ -z "$ZIP_PATH" ]; then
-            echo "Could not find 28-ex_csv_asvp ZIP link"
+            echo "Could not find current ASVP ZIP link"
             exit 1
           fi
 
@@ -50,5 +50,5 @@ jobs:
 
           ls -lh sample.zip
 
-          echo "Testing zip listing..."
-          unzip -l sample.zip || true
+          echo "Checking file type..."
+          file sample.zip || true
