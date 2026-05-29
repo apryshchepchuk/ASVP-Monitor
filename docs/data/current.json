@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-05-28T08:25:05.523397+00:00",
+  "generated_at": "2026-05-29T08:22:11.058157+00:00",
   "source_name": "data.gov.ua",
   "source_url": "https://data.gov.ua/dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip",
   "source_info": {
     "source_name": "data.gov.ua",
     "source_url": "https://data.gov.ua/dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip",
-    "download_size_mb": 3037.5
+    "download_size_mb": 3042.2
   },
   "csv_file_name": "28-ex_csv_asvp.csv",
   "reader": "unzip -p",
-  "rows_scanned": 29599603,
+  "rows_scanned": 29609764,
   "matched_records_total": 213,
   "is_partial": false,
   "warnings": [],
