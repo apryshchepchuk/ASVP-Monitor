@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-02T09:02:17.617464+00:00",
+  "generated_at": "2026-06-02T12:43:15.088147+00:00",
   "window_days": 14,
   "source": {
-    "rows_scanned": 29616913,
+    "rows_scanned": 29626492,
     "matched_records_total": 213,
     "reader": "unzip -p",
     "is_partial": false,
