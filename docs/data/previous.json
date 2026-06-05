@@ -1,15 +1,11 @@
 {
-  "generated_at": "2026-06-02T12:43:15.088147+00:00",
-  "source_name": "nais.gov.ua",
-  "source_url": "https://nais.gov.ua/files/general/2026/06/02/20260602081939-31.zip",
+  "generated_at": "2026-06-03T09:21:01.467394+00:00",
+  "source_name": "data.gov.ua",
+  "source_url": "https://data.gov.ua/dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip",
   "source_info": {
-    "source_name": "nais.gov.ua",
-    "source_url": "https://nais.gov.ua/files/general/2026/06/02/20260602081939-31.zip",
-    "download_size_mb": 3042.7,
-    "fallback_after": "data.gov.ua",
-    "download_errors": [
-      "data.gov.ua failed: ('Connection broken: IncompleteRead(626294504 bytes read, 2564242034 more expected)', IncompleteRead(626294504 bytes read, 2564242034 more expected))"
-    ]
+    "source_name": "data.gov.ua",
+    "source_url": "https://data.gov.ua/dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip",
+    "download_size_mb": 3042.7
   },
   "csv_file_name": "28-ex_csv_asvp.csv",
   "reader": "unzip -p",

@@ -1,27 +1,127 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-03T09:21:01.467394+00:00",
+  "generated_at": "2026-06-05T08:43:33.173879+00:00",
   "window_days": 14,
   "source": {
-    "rows_scanned": 29626492,
-    "matched_records_total": 213,
+    "rows_scanned": 29663190,
+    "matched_records_total": 214,
     "reader": "unzip -p",
     "is_partial": false,
     "csv_file_name": "28-ex_csv_asvp.csv"
   },
   "kpi": {
-    "total": 213,
+    "total": 214,
     "debtors": 42,
-    "creditors": 171,
-    "active": 37,
+    "creditors": 172,
+    "active": 38,
     "completed": 154,
     "stopped": 5,
     "refused": 17,
     "other": 0,
-    "new_14d": 0,
+    "new_14d": 1,
     "changed_14d": 0
   },
   "records": [
+    {
+      "match_key": "81170663|creditor|edr_00481198",
+      "vp_ordernum": "81170663",
+      "subject": {
+        "id": "edr_00481198",
+        "type": "company",
+        "name": "АТ \"Фармак\"",
+        "code": "00481198",
+        "role": "creditor"
+      },
+      "state": {
+        "current": "Відкрито",
+        "category": "active"
+      },
+      "dates": {
+        "vp_begin": "03.06.2026 00:00:00",
+        "first_seen": "2026-06-05T08:43:33.173879+00:00",
+        "last_changed": null,
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": true,
+        "is_changed_14d": false
+      },
+      "parties": {
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ФАРМПРОТЕКТ\"",
+        "debtor_birthdate": "",
+        "debtor_code": "38735747",
+        "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО «ФАРМАК»",
+        "creditor_code": "00481198"
+      },
+      "dvs": {
+        "org_name": "Приватний виконавець Сколибог О.С.",
+        "dvs_code": ""
+      },
+      "events": [
+        {
+          "event_id": "217dcb2fd445136d032deab731330f5cb4a6b543",
+          "event_type": "new_case",
+          "detected_at": "2026-06-05T08:43:33.173879+00:00",
+          "match_key": "81170663|creditor|edr_00481198",
+          "vp_ordernum": "81170663",
+          "subject_id": "edr_00481198",
+          "subject_name": "АТ \"Фармак\"",
+          "subject_code": "00481198",
+          "role": "creditor",
+          "state": "Відкрито",
+          "record": {
+            "match_key": "81170663|creditor|edr_00481198",
+            "subject_id": "edr_00481198",
+            "subject_type": "company",
+            "subject_name": "АТ \"Фармак\"",
+            "subject_code": "00481198",
+            "role": "creditor",
+            "vp_ordernum": "81170663",
+            "vp_begindate": "03.06.2026 00:00:00",
+            "vp_state": "Відкрито",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ФАРМПРОТЕКТ\"",
+            "debtor_birthdate": "",
+            "debtor_code": "38735747",
+            "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО «ФАРМАК»",
+            "creditor_code": "00481198",
+            "org_name": "Приватний виконавець Сколибог О.С.",
+            "dvs_code": ""
+          }
+        }
+      ],
+      "recent_events": [
+        {
+          "event_id": "217dcb2fd445136d032deab731330f5cb4a6b543",
+          "event_type": "new_case",
+          "detected_at": "2026-06-05T08:43:33.173879+00:00",
+          "match_key": "81170663|creditor|edr_00481198",
+          "vp_ordernum": "81170663",
+          "subject_id": "edr_00481198",
+          "subject_name": "АТ \"Фармак\"",
+          "subject_code": "00481198",
+          "role": "creditor",
+          "state": "Відкрито",
+          "record": {
+            "match_key": "81170663|creditor|edr_00481198",
+            "subject_id": "edr_00481198",
+            "subject_type": "company",
+            "subject_name": "АТ \"Фармак\"",
+            "subject_code": "00481198",
+            "role": "creditor",
+            "vp_ordernum": "81170663",
+            "vp_begindate": "03.06.2026 00:00:00",
+            "vp_state": "Відкрито",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ФАРМПРОТЕКТ\"",
+            "debtor_birthdate": "",
+            "debtor_code": "38735747",
+            "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО «ФАРМАК»",
+            "creditor_code": "00481198",
+            "org_name": "Приватний виконавець Сколибог О.С.",
+            "dvs_code": ""
+          }
+        }
+      ]
+    },
     {
       "match_key": "80901964|debtor|edr_00481198",
       "vp_ordernum": "80901964",
