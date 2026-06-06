@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-06-03T09:21:01.467394+00:00",
+  "generated_at": "2026-06-05T08:43:33.173879+00:00",
   "source_name": "data.gov.ua",
   "source_url": "https://data.gov.ua/dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip",
   "source_info": {
     "source_name": "data.gov.ua",
     "source_url": "https://data.gov.ua/dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip",
-    "download_size_mb": 3042.7
+    "download_size_mb": 3049.3
   },
   "csv_file_name": "28-ex_csv_asvp.csv",
   "reader": "unzip -p",
-  "rows_scanned": 29626492,
-  "matched_records_total": 213,
+  "rows_scanned": 29663190,
+  "matched_records_total": 214,
   "is_partial": false,
   "warnings": [],
   "records": [
@@ -408,6 +408,24 @@
       "creditor_name": "Акціонерне товариство \"ФАРМАК\"",
       "creditor_code": "00481198",
       "org_name": "Приватний виконавець Літвінішина І.І.",
+      "dvs_code": ""
+    },
+    {
+      "match_key": "81170663|creditor|edr_00481198",
+      "subject_id": "edr_00481198",
+      "subject_type": "company",
+      "subject_name": "АТ \"Фармак\"",
+      "subject_code": "00481198",
+      "role": "creditor",
+      "vp_ordernum": "81170663",
+      "vp_begindate": "03.06.2026 00:00:00",
+      "vp_state": "Відкрито",
+      "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ФАРМПРОТЕКТ\"",
+      "debtor_birthdate": "",
+      "debtor_code": "38735747",
+      "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО «ФАРМАК»",
+      "creditor_code": "00481198",
+      "org_name": "Приватний виконавець Сколибог О.С.",
       "dvs_code": ""
     },
     {

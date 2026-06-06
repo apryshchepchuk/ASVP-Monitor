@@ -1,31 +1,12 @@
 {
-  "generated_at": "2026-06-05T08:43:33.375224+00:00",
+  "generated_at": "2026-06-06T07:46:14.982472+00:00",
   "current_partial": false,
   "previous_partial": false,
-  "added_total": 1,
+  "added_total": 0,
   "removed_total": 0,
   "state_changed_total": 0,
   "details_changed_total": 0,
-  "added": [
-    {
-      "match_key": "81170663|creditor|edr_00481198",
-      "subject_id": "edr_00481198",
-      "subject_type": "company",
-      "subject_name": "АТ \"Фармак\"",
-      "subject_code": "00481198",
-      "role": "creditor",
-      "vp_ordernum": "81170663",
-      "vp_begindate": "03.06.2026 00:00:00",
-      "vp_state": "Відкрито",
-      "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ФАРМПРОТЕКТ\"",
-      "debtor_birthdate": "",
-      "debtor_code": "38735747",
-      "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО «ФАРМАК»",
-      "creditor_code": "00481198",
-      "org_name": "Приватний виконавець Сколибог О.С.",
-      "dvs_code": ""
-    }
-  ],
+  "added": [],
   "removed": [],
   "state_changed": [],
   "details_changed": []
