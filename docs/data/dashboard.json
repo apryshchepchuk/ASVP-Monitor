@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-18T09:05:44.094017+00:00",
+  "generated_at": "2026-06-19T09:27:18.026075+00:00",
   "window_days": 14,
   "source": {
-    "rows_scanned": 29758123,
+    "rows_scanned": 29768473,
     "matched_records_total": 214,
     "reader": "unzip -p",
     "is_partial": false,
@@ -18,7 +18,7 @@
     "stopped": 5,
     "refused": 17,
     "other": 0,
-    "new_14d": 1,
+    "new_14d": 0,
     "changed_14d": 0
   },
   "records": [
@@ -43,7 +43,7 @@
         "last_seen": null
       },
       "flags": {
-        "is_new_14d": true,
+        "is_new_14d": false,
         "is_changed_14d": false
       },
       "parties": {
@@ -89,38 +89,7 @@
           }
         }
       ],
-      "recent_events": [
-        {
-          "event_id": "217dcb2fd445136d032deab731330f5cb4a6b543",
-          "event_type": "new_case",
-          "detected_at": "2026-06-05T08:43:33.173879+00:00",
-          "match_key": "81170663|creditor|edr_00481198",
-          "vp_ordernum": "81170663",
-          "subject_id": "edr_00481198",
-          "subject_name": "АТ \"Фармак\"",
-          "subject_code": "00481198",
-          "role": "creditor",
-          "state": "Відкрито",
-          "record": {
-            "match_key": "81170663|creditor|edr_00481198",
-            "subject_id": "edr_00481198",
-            "subject_type": "company",
-            "subject_name": "АТ \"Фармак\"",
-            "subject_code": "00481198",
-            "role": "creditor",
-            "vp_ordernum": "81170663",
-            "vp_begindate": "03.06.2026 00:00:00",
-            "vp_state": "Відкрито",
-            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ФАРМПРОТЕКТ\"",
-            "debtor_birthdate": "",
-            "debtor_code": "38735747",
-            "creditor_name": "АКЦІОНЕРНЕ ТОВАРИСТВО «ФАРМАК»",
-            "creditor_code": "00481198",
-            "org_name": "Приватний виконавець Сколибог О.С.",
-            "dvs_code": ""
-          }
-        }
-      ]
+      "recent_events": []
     },
     {
       "match_key": "80901964|debtor|edr_00481198",
