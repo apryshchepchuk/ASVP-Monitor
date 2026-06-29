@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-28T08:17:05.473600+00:00",
+  "generated_at": "2026-06-29T09:22:50.659945+00:00",
   "window_days": 14,
   "source": {
-    "rows_scanned": 29830685,
+    "rows_scanned": 29837870,
     "matched_records_total": 214,
     "reader": "unzip -p",
     "is_partial": false,
@@ -13,13 +13,13 @@
     "total": 214,
     "debtors": 42,
     "creditors": 172,
-    "active": 38,
-    "completed": 154,
+    "active": 37,
+    "completed": 155,
     "stopped": 5,
     "refused": 17,
     "other": 0,
     "new_14d": 0,
-    "changed_14d": 0
+    "changed_14d": 1
   },
   "records": [
     {
@@ -558,18 +558,18 @@
         "role": "creditor"
       },
       "state": {
-        "current": "Відкрито",
-        "category": "active"
+        "current": "Завершено",
+        "category": "completed"
       },
       "dates": {
         "vp_begin": "14.07.2025 00:00:00",
-        "first_seen": null,
-        "last_changed": null,
+        "first_seen": "2026-06-29T09:22:50.659945+00:00",
+        "last_changed": "2026-06-29T09:22:50.659945+00:00",
         "last_seen": null
       },
       "flags": {
         "is_new_14d": false,
-        "is_changed_14d": false
+        "is_changed_14d": true
       },
       "parties": {
         "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ ФІРМА \"СТАРА АПТЕКА\".",
@@ -582,8 +582,72 @@
         "org_name": "Ковпаківський відділ державної виконавчої служби у місті Суми Сумського міжрегіонального управління Міністерства юстиції України",
         "dvs_code": "40211121"
       },
-      "events": [],
-      "recent_events": []
+      "events": [
+        {
+          "event_id": "34ea22d002c82b3327d9d0f33e11901ba1351657",
+          "event_type": "state_changed",
+          "detected_at": "2026-06-29T09:22:50.659945+00:00",
+          "match_key": "78594155|creditor|edr_21947206",
+          "vp_ordernum": "78594155",
+          "subject_id": "edr_21947206",
+          "subject_name": "ТОВ \"ВЕНТА. ЛТД\"",
+          "subject_code": "21947206",
+          "role": "creditor",
+          "old_state": "Відкрито",
+          "new_state": "Завершено",
+          "record": {
+            "match_key": "78594155|creditor|edr_21947206",
+            "subject_id": "edr_21947206",
+            "subject_type": "company",
+            "subject_name": "ТОВ \"ВЕНТА. ЛТД\"",
+            "subject_code": "21947206",
+            "role": "creditor",
+            "vp_ordernum": "78594155",
+            "vp_begindate": "14.07.2025 00:00:00",
+            "vp_state": "Завершено",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ ФІРМА \"СТАРА АПТЕКА\".",
+            "debtor_birthdate": "",
+            "debtor_code": "23822986",
+            "creditor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ВЕНТА. ЛТД\"",
+            "creditor_code": "21947206",
+            "org_name": "Ковпаківський відділ державної виконавчої служби у місті Суми Сумського міжрегіонального управління Міністерства юстиції України",
+            "dvs_code": "40211121"
+          }
+        }
+      ],
+      "recent_events": [
+        {
+          "event_id": "34ea22d002c82b3327d9d0f33e11901ba1351657",
+          "event_type": "state_changed",
+          "detected_at": "2026-06-29T09:22:50.659945+00:00",
+          "match_key": "78594155|creditor|edr_21947206",
+          "vp_ordernum": "78594155",
+          "subject_id": "edr_21947206",
+          "subject_name": "ТОВ \"ВЕНТА. ЛТД\"",
+          "subject_code": "21947206",
+          "role": "creditor",
+          "old_state": "Відкрито",
+          "new_state": "Завершено",
+          "record": {
+            "match_key": "78594155|creditor|edr_21947206",
+            "subject_id": "edr_21947206",
+            "subject_type": "company",
+            "subject_name": "ТОВ \"ВЕНТА. ЛТД\"",
+            "subject_code": "21947206",
+            "role": "creditor",
+            "vp_ordernum": "78594155",
+            "vp_begindate": "14.07.2025 00:00:00",
+            "vp_state": "Завершено",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ ФІРМА \"СТАРА АПТЕКА\".",
+            "debtor_birthdate": "",
+            "debtor_code": "23822986",
+            "creditor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ВЕНТА. ЛТД\"",
+            "creditor_code": "21947206",
+            "org_name": "Ковпаківський відділ державної виконавчої служби у місті Суми Сумського міжрегіонального управління Міністерства юстиції України",
+            "dvs_code": "40211121"
+          }
+        }
+      ]
     },
     {
       "match_key": "78551358|creditor|edr_31816235",

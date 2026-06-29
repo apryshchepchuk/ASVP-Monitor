@@ -61,8 +61,39 @@
         "org_name": "Приватний виконавець Сколибог О.С.",
         "dvs_code": ""
       }
+    },
+    {
+      "event_id": "34ea22d002c82b3327d9d0f33e11901ba1351657",
+      "event_type": "state_changed",
+      "detected_at": "2026-06-29T09:22:50.659945+00:00",
+      "match_key": "78594155|creditor|edr_21947206",
+      "vp_ordernum": "78594155",
+      "subject_id": "edr_21947206",
+      "subject_name": "ТОВ \"ВЕНТА. ЛТД\"",
+      "subject_code": "21947206",
+      "role": "creditor",
+      "old_state": "Відкрито",
+      "new_state": "Завершено",
+      "record": {
+        "match_key": "78594155|creditor|edr_21947206",
+        "subject_id": "edr_21947206",
+        "subject_type": "company",
+        "subject_name": "ТОВ \"ВЕНТА. ЛТД\"",
+        "subject_code": "21947206",
+        "role": "creditor",
+        "vp_ordernum": "78594155",
+        "vp_begindate": "14.07.2025 00:00:00",
+        "vp_state": "Завершено",
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ ФІРМА \"СТАРА АПТЕКА\".",
+        "debtor_birthdate": "",
+        "debtor_code": "23822986",
+        "creditor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ВЕНТА. ЛТД\"",
+        "creditor_code": "21947206",
+        "org_name": "Ковпаківський відділ державної виконавчої служби у місті Суми Сумського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "40211121"
+      }
     }
   ],
-  "updated_at": "2026-06-28T08:17:05.717304+00:00",
-  "events_total": 2
+  "updated_at": "2026-06-29T09:22:50.898872+00:00",
+  "events_total": 3
 }
