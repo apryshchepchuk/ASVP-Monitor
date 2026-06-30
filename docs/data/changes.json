@@ -1,53 +1,13 @@
 {
-  "generated_at": "2026-06-29T09:22:50.854715+00:00",
+  "generated_at": "2026-06-30T08:10:37.150667+00:00",
   "current_partial": false,
   "previous_partial": false,
   "added_total": 0,
   "removed_total": 0,
-  "state_changed_total": 1,
+  "state_changed_total": 0,
   "details_changed_total": 0,
   "added": [],
   "removed": [],
-  "state_changed": [
-    {
-      "match_key": "78594155|creditor|edr_21947206",
-      "previous": {
-        "match_key": "78594155|creditor|edr_21947206",
-        "subject_id": "edr_21947206",
-        "subject_type": "company",
-        "subject_name": "ТОВ \"ВЕНТА. ЛТД\"",
-        "subject_code": "21947206",
-        "role": "creditor",
-        "vp_ordernum": "78594155",
-        "vp_begindate": "14.07.2025 00:00:00",
-        "vp_state": "Відкрито",
-        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ ФІРМА \"СТАРА АПТЕКА\".",
-        "debtor_birthdate": "",
-        "debtor_code": "23822986",
-        "creditor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ВЕНТА. ЛТД\"",
-        "creditor_code": "21947206",
-        "org_name": "Ковпаківський відділ державної виконавчої служби у місті Суми Сумського міжрегіонального управління Міністерства юстиції України",
-        "dvs_code": "40211121"
-      },
-      "current": {
-        "match_key": "78594155|creditor|edr_21947206",
-        "subject_id": "edr_21947206",
-        "subject_type": "company",
-        "subject_name": "ТОВ \"ВЕНТА. ЛТД\"",
-        "subject_code": "21947206",
-        "role": "creditor",
-        "vp_ordernum": "78594155",
-        "vp_begindate": "14.07.2025 00:00:00",
-        "vp_state": "Завершено",
-        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ ФІРМА \"СТАРА АПТЕКА\".",
-        "debtor_birthdate": "",
-        "debtor_code": "23822986",
-        "creditor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ВЕНТА. ЛТД\"",
-        "creditor_code": "21947206",
-        "org_name": "Ковпаківський відділ державної виконавчої служби у місті Суми Сумського міжрегіонального управління Міністерства юстиції України",
-        "dvs_code": "40211121"
-      }
-    }
-  ],
+  "state_changed": [],
   "details_changed": []
 }
