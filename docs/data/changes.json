@@ -1,13 +1,53 @@
 {
-  "generated_at": "2026-07-01T08:42:16.981503+00:00",
+  "generated_at": "2026-07-02T07:57:37.782527+00:00",
   "current_partial": false,
   "previous_partial": false,
   "added_total": 0,
   "removed_total": 0,
-  "state_changed_total": 0,
+  "state_changed_total": 1,
   "details_changed_total": 0,
   "added": [],
   "removed": [],
-  "state_changed": [],
+  "state_changed": [
+    {
+      "match_key": "79729061|debtor|edr_31816235",
+      "previous": {
+        "match_key": "79729061|debtor|edr_31816235",
+        "subject_id": "edr_31816235",
+        "subject_type": "company",
+        "subject_name": "ТОВ \"БАДМ\"",
+        "subject_code": "31816235",
+        "role": "debtor",
+        "vp_ordernum": "79729061",
+        "vp_begindate": "03.12.2025 00:00:00",
+        "vp_state": "Зупинено",
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+        "debtor_birthdate": "",
+        "debtor_code": "31816235",
+        "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+        "creditor_code": "00032767",
+        "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
+        "dvs_code": "00015622"
+      },
+      "current": {
+        "match_key": "79729061|debtor|edr_31816235",
+        "subject_id": "edr_31816235",
+        "subject_type": "company",
+        "subject_name": "ТОВ \"БАДМ\"",
+        "subject_code": "31816235",
+        "role": "debtor",
+        "vp_ordernum": "79729061",
+        "vp_begindate": "03.12.2025 00:00:00",
+        "vp_state": "Відкрито",
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+        "debtor_birthdate": "",
+        "debtor_code": "31816235",
+        "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+        "creditor_code": "00032767",
+        "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
+        "dvs_code": "00015622"
+      }
+    }
+  ],
   "details_changed": []
 }

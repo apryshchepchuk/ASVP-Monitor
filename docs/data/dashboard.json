@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-01T08:42:16.753622+00:00",
+  "generated_at": "2026-07-02T07:57:37.595641+00:00",
   "window_days": 14,
   "source": {
-    "rows_scanned": 29845592,
+    "rows_scanned": 29851642,
     "matched_records_total": 214,
     "reader": "unzip -p",
     "is_partial": false,
@@ -13,13 +13,13 @@
     "total": 214,
     "debtors": 42,
     "creditors": 172,
-    "active": 37,
+    "active": 38,
     "completed": 155,
-    "stopped": 5,
+    "stopped": 4,
     "refused": 17,
     "other": 0,
     "new_14d": 0,
-    "changed_14d": 1
+    "changed_14d": 2
   },
   "records": [
     {
@@ -406,18 +406,18 @@
         "role": "debtor"
       },
       "state": {
-        "current": "Зупинено",
-        "category": "stopped"
+        "current": "Відкрито",
+        "category": "active"
       },
       "dates": {
         "vp_begin": "03.12.2025 00:00:00",
-        "first_seen": null,
-        "last_changed": null,
+        "first_seen": "2026-07-02T07:57:37.595641+00:00",
+        "last_changed": "2026-07-02T07:57:37.595641+00:00",
         "last_seen": null
       },
       "flags": {
         "is_new_14d": false,
-        "is_changed_14d": false
+        "is_changed_14d": true
       },
       "parties": {
         "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
@@ -430,8 +430,72 @@
         "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
         "dvs_code": "00015622"
       },
-      "events": [],
-      "recent_events": []
+      "events": [
+        {
+          "event_id": "c744136dc52d86e22d516adf175af2802fb0d7f8",
+          "event_type": "state_changed",
+          "detected_at": "2026-07-02T07:57:37.595641+00:00",
+          "match_key": "79729061|debtor|edr_31816235",
+          "vp_ordernum": "79729061",
+          "subject_id": "edr_31816235",
+          "subject_name": "ТОВ \"БАДМ\"",
+          "subject_code": "31816235",
+          "role": "debtor",
+          "old_state": "Зупинено",
+          "new_state": "Відкрито",
+          "record": {
+            "match_key": "79729061|debtor|edr_31816235",
+            "subject_id": "edr_31816235",
+            "subject_type": "company",
+            "subject_name": "ТОВ \"БАДМ\"",
+            "subject_code": "31816235",
+            "role": "debtor",
+            "vp_ordernum": "79729061",
+            "vp_begindate": "03.12.2025 00:00:00",
+            "vp_state": "Відкрито",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+            "debtor_birthdate": "",
+            "debtor_code": "31816235",
+            "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+            "creditor_code": "00032767",
+            "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
+            "dvs_code": "00015622"
+          }
+        }
+      ],
+      "recent_events": [
+        {
+          "event_id": "c744136dc52d86e22d516adf175af2802fb0d7f8",
+          "event_type": "state_changed",
+          "detected_at": "2026-07-02T07:57:37.595641+00:00",
+          "match_key": "79729061|debtor|edr_31816235",
+          "vp_ordernum": "79729061",
+          "subject_id": "edr_31816235",
+          "subject_name": "ТОВ \"БАДМ\"",
+          "subject_code": "31816235",
+          "role": "debtor",
+          "old_state": "Зупинено",
+          "new_state": "Відкрито",
+          "record": {
+            "match_key": "79729061|debtor|edr_31816235",
+            "subject_id": "edr_31816235",
+            "subject_type": "company",
+            "subject_name": "ТОВ \"БАДМ\"",
+            "subject_code": "31816235",
+            "role": "debtor",
+            "vp_ordernum": "79729061",
+            "vp_begindate": "03.12.2025 00:00:00",
+            "vp_state": "Відкрито",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+            "debtor_birthdate": "",
+            "debtor_code": "31816235",
+            "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+            "creditor_code": "00032767",
+            "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
+            "dvs_code": "00015622"
+          }
+        }
+      ]
     },
     {
       "match_key": "79579764|creditor|edr_00481198",

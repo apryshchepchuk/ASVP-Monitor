@@ -92,8 +92,39 @@
         "org_name": "Ковпаківський відділ державної виконавчої служби у місті Суми Сумського міжрегіонального управління Міністерства юстиції України",
         "dvs_code": "40211121"
       }
+    },
+    {
+      "event_id": "c744136dc52d86e22d516adf175af2802fb0d7f8",
+      "event_type": "state_changed",
+      "detected_at": "2026-07-02T07:57:37.595641+00:00",
+      "match_key": "79729061|debtor|edr_31816235",
+      "vp_ordernum": "79729061",
+      "subject_id": "edr_31816235",
+      "subject_name": "ТОВ \"БАДМ\"",
+      "subject_code": "31816235",
+      "role": "debtor",
+      "old_state": "Зупинено",
+      "new_state": "Відкрито",
+      "record": {
+        "match_key": "79729061|debtor|edr_31816235",
+        "subject_id": "edr_31816235",
+        "subject_type": "company",
+        "subject_name": "ТОВ \"БАДМ\"",
+        "subject_code": "31816235",
+        "role": "debtor",
+        "vp_ordernum": "79729061",
+        "vp_begindate": "03.12.2025 00:00:00",
+        "vp_state": "Відкрито",
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+        "debtor_birthdate": "",
+        "debtor_code": "31816235",
+        "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+        "creditor_code": "00032767",
+        "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
+        "dvs_code": "00015622"
+      }
     }
   ],
-  "updated_at": "2026-07-01T08:42:17.030391+00:00",
-  "events_total": 3
+  "updated_at": "2026-07-02T07:57:37.824468+00:00",
+  "events_total": 4
 }
