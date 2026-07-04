@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-03T07:49:58.483688+00:00",
+  "generated_at": "2026-07-04T07:29:11.665059+00:00",
   "window_days": 14,
   "source": {
-    "rows_scanned": 29857872,
+    "rows_scanned": 29867572,
     "matched_records_total": 214,
     "reader": "unzip -p",
     "is_partial": false,
@@ -13,13 +13,13 @@
     "total": 214,
     "debtors": 42,
     "creditors": 172,
-    "active": 38,
+    "active": 36,
     "completed": 155,
-    "stopped": 4,
+    "stopped": 6,
     "refused": 17,
     "other": 0,
     "new_14d": 0,
-    "changed_14d": 2
+    "changed_14d": 3
   },
   "records": [
     {
@@ -178,18 +178,18 @@
         "role": "debtor"
       },
       "state": {
-        "current": "Відкрито",
-        "category": "active"
+        "current": "Зупинено",
+        "category": "stopped"
       },
       "dates": {
         "vp_begin": "22.04.2026 00:00:00",
-        "first_seen": null,
-        "last_changed": null,
+        "first_seen": "2026-07-04T07:29:11.665059+00:00",
+        "last_changed": "2026-07-04T07:29:11.665059+00:00",
         "last_seen": null
       },
       "flags": {
         "is_new_14d": false,
-        "is_changed_14d": false
+        "is_changed_14d": true
       },
       "parties": {
         "debtor_name": "СПІЛЬНЕ УКРАЇНСЬКО-ЕСТОНСЬКЕ ПІДПРИЄМСТВО У ФОРМІ ТОВАРИСТВА З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ОПТІМА-ФАРМ, ЛТД\"",
@@ -202,8 +202,72 @@
         "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
         "dvs_code": "00015622"
       },
-      "events": [],
-      "recent_events": []
+      "events": [
+        {
+          "event_id": "a4112fe2c6398da05c6bce41a20d6f429deec4b4",
+          "event_type": "state_changed",
+          "detected_at": "2026-07-04T07:29:11.665059+00:00",
+          "match_key": "80829480|debtor|edr_21642228",
+          "vp_ordernum": "80829480",
+          "subject_id": "edr_21642228",
+          "subject_name": "СП \"ОПТІМА-ФАРМ, ЛТД\"",
+          "subject_code": "21642228",
+          "role": "debtor",
+          "old_state": "Відкрито",
+          "new_state": "Зупинено",
+          "record": {
+            "match_key": "80829480|debtor|edr_21642228",
+            "subject_id": "edr_21642228",
+            "subject_type": "company",
+            "subject_name": "СП \"ОПТІМА-ФАРМ, ЛТД\"",
+            "subject_code": "21642228",
+            "role": "debtor",
+            "vp_ordernum": "80829480",
+            "vp_begindate": "22.04.2026 00:00:00",
+            "vp_state": "Зупинено",
+            "debtor_name": "СПІЛЬНЕ УКРАЇНСЬКО-ЕСТОНСЬКЕ ПІДПРИЄМСТВО У ФОРМІ ТОВАРИСТВА З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ОПТІМА-ФАРМ, ЛТД\"",
+            "debtor_birthdate": "",
+            "debtor_code": "21642228",
+            "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+            "creditor_code": "00032767",
+            "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
+            "dvs_code": "00015622"
+          }
+        }
+      ],
+      "recent_events": [
+        {
+          "event_id": "a4112fe2c6398da05c6bce41a20d6f429deec4b4",
+          "event_type": "state_changed",
+          "detected_at": "2026-07-04T07:29:11.665059+00:00",
+          "match_key": "80829480|debtor|edr_21642228",
+          "vp_ordernum": "80829480",
+          "subject_id": "edr_21642228",
+          "subject_name": "СП \"ОПТІМА-ФАРМ, ЛТД\"",
+          "subject_code": "21642228",
+          "role": "debtor",
+          "old_state": "Відкрито",
+          "new_state": "Зупинено",
+          "record": {
+            "match_key": "80829480|debtor|edr_21642228",
+            "subject_id": "edr_21642228",
+            "subject_type": "company",
+            "subject_name": "СП \"ОПТІМА-ФАРМ, ЛТД\"",
+            "subject_code": "21642228",
+            "role": "debtor",
+            "vp_ordernum": "80829480",
+            "vp_begindate": "22.04.2026 00:00:00",
+            "vp_state": "Зупинено",
+            "debtor_name": "СПІЛЬНЕ УКРАЇНСЬКО-ЕСТОНСЬКЕ ПІДПРИЄМСТВО У ФОРМІ ТОВАРИСТВА З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ОПТІМА-ФАРМ, ЛТД\"",
+            "debtor_birthdate": "",
+            "debtor_code": "21642228",
+            "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+            "creditor_code": "00032767",
+            "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
+            "dvs_code": "00015622"
+          }
+        }
+      ]
     },
     {
       "match_key": "80704123|creditor|edr_31816235",
@@ -406,13 +470,13 @@
         "role": "debtor"
       },
       "state": {
-        "current": "Відкрито",
-        "category": "active"
+        "current": "Зупинено",
+        "category": "stopped"
       },
       "dates": {
         "vp_begin": "03.12.2025 00:00:00",
         "first_seen": "2026-07-02T07:57:37.595641+00:00",
-        "last_changed": "2026-07-02T07:57:37.595641+00:00",
+        "last_changed": "2026-07-04T07:29:11.665059+00:00",
         "last_seen": null
       },
       "flags": {
@@ -461,6 +525,37 @@
             "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
             "dvs_code": "00015622"
           }
+        },
+        {
+          "event_id": "f260f434792e796c3f5d5c857df614f93c3b7056",
+          "event_type": "state_changed",
+          "detected_at": "2026-07-04T07:29:11.665059+00:00",
+          "match_key": "79729061|debtor|edr_31816235",
+          "vp_ordernum": "79729061",
+          "subject_id": "edr_31816235",
+          "subject_name": "ТОВ \"БАДМ\"",
+          "subject_code": "31816235",
+          "role": "debtor",
+          "old_state": "Відкрито",
+          "new_state": "Зупинено",
+          "record": {
+            "match_key": "79729061|debtor|edr_31816235",
+            "subject_id": "edr_31816235",
+            "subject_type": "company",
+            "subject_name": "ТОВ \"БАДМ\"",
+            "subject_code": "31816235",
+            "role": "debtor",
+            "vp_ordernum": "79729061",
+            "vp_begindate": "03.12.2025 00:00:00",
+            "vp_state": "Зупинено",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+            "debtor_birthdate": "",
+            "debtor_code": "31816235",
+            "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+            "creditor_code": "00032767",
+            "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
+            "dvs_code": "00015622"
+          }
         }
       ],
       "recent_events": [
@@ -486,6 +581,37 @@
             "vp_ordernum": "79729061",
             "vp_begindate": "03.12.2025 00:00:00",
             "vp_state": "Відкрито",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+            "debtor_birthdate": "",
+            "debtor_code": "31816235",
+            "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+            "creditor_code": "00032767",
+            "org_name": "Відділ примусового виконання рішень Департаменту державної виконавчої служби Міністерства юстиції України",
+            "dvs_code": "00015622"
+          }
+        },
+        {
+          "event_id": "f260f434792e796c3f5d5c857df614f93c3b7056",
+          "event_type": "state_changed",
+          "detected_at": "2026-07-04T07:29:11.665059+00:00",
+          "match_key": "79729061|debtor|edr_31816235",
+          "vp_ordernum": "79729061",
+          "subject_id": "edr_31816235",
+          "subject_name": "ТОВ \"БАДМ\"",
+          "subject_code": "31816235",
+          "role": "debtor",
+          "old_state": "Відкрито",
+          "new_state": "Зупинено",
+          "record": {
+            "match_key": "79729061|debtor|edr_31816235",
+            "subject_id": "edr_31816235",
+            "subject_type": "company",
+            "subject_name": "ТОВ \"БАДМ\"",
+            "subject_code": "31816235",
+            "role": "debtor",
+            "vp_ordernum": "79729061",
+            "vp_begindate": "03.12.2025 00:00:00",
+            "vp_state": "Зупинено",
             "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
             "debtor_birthdate": "",
             "debtor_code": "31816235",
