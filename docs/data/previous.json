@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-07-03T07:49:58.483688+00:00",
+  "generated_at": "2026-07-04T07:29:11.665059+00:00",
   "source_name": "data.gov.ua",
   "source_url": "https://data.gov.ua/dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip",
   "source_info": {
     "source_name": "data.gov.ua",
     "source_url": "https://data.gov.ua/dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip",
-    "download_size_mb": 3069.0
+    "download_size_mb": 3055.1
   },
   "csv_file_name": "28-ex_csv_asvp.csv",
   "reader": "unzip -p",
-  "rows_scanned": 29857872,
+  "rows_scanned": 29867572,
   "matched_records_total": 214,
   "is_partial": false,
   "warnings": [],
@@ -2111,7 +2111,7 @@
       "role": "debtor",
       "vp_ordernum": "80829480",
       "vp_begindate": "22.04.2026 00:00:00",
-      "vp_state": "Відкрито",
+      "vp_state": "Зупинено",
       "debtor_name": "СПІЛЬНЕ УКРАЇНСЬКО-ЕСТОНСЬКЕ ПІДПРИЄМСТВО У ФОРМІ ТОВАРИСТВА З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ОПТІМА-ФАРМ, ЛТД\"",
       "debtor_birthdate": "",
       "debtor_code": "21642228",
@@ -3839,7 +3839,7 @@
       "role": "debtor",
       "vp_ordernum": "79729061",
       "vp_begindate": "03.12.2025 00:00:00",
-      "vp_state": "Відкрито",
+      "vp_state": "Зупинено",
       "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
       "debtor_birthdate": "",
       "debtor_code": "31816235",
