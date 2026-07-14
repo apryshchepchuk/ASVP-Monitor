@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-13T07:53:55.937268+00:00",
+  "generated_at": "2026-07-14T06:39:37.014911+00:00",
   "window_days": 14,
   "source": {
-    "rows_scanned": 29916003,
+    "rows_scanned": 29941784,
     "matched_records_total": 214,
     "reader": "unzip -p",
     "is_partial": false,
@@ -19,7 +19,7 @@
     "refused": 17,
     "other": 0,
     "new_14d": 0,
-    "changed_14d": 3
+    "changed_14d": 2
   },
   "records": [
     {
@@ -759,7 +759,7 @@
       },
       "flags": {
         "is_new_14d": false,
-        "is_changed_14d": true
+        "is_changed_14d": false
       },
       "parties": {
         "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ ФІРМА \"СТАРА АПТЕКА\".",
@@ -805,39 +805,7 @@
           }
         }
       ],
-      "recent_events": [
-        {
-          "event_id": "34ea22d002c82b3327d9d0f33e11901ba1351657",
-          "event_type": "state_changed",
-          "detected_at": "2026-06-29T09:22:50.659945+00:00",
-          "match_key": "78594155|creditor|edr_21947206",
-          "vp_ordernum": "78594155",
-          "subject_id": "edr_21947206",
-          "subject_name": "ТОВ \"ВЕНТА. ЛТД\"",
-          "subject_code": "21947206",
-          "role": "creditor",
-          "old_state": "Відкрито",
-          "new_state": "Завершено",
-          "record": {
-            "match_key": "78594155|creditor|edr_21947206",
-            "subject_id": "edr_21947206",
-            "subject_type": "company",
-            "subject_name": "ТОВ \"ВЕНТА. ЛТД\"",
-            "subject_code": "21947206",
-            "role": "creditor",
-            "vp_ordernum": "78594155",
-            "vp_begindate": "14.07.2025 00:00:00",
-            "vp_state": "Завершено",
-            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ ФІРМА \"СТАРА АПТЕКА\".",
-            "debtor_birthdate": "",
-            "debtor_code": "23822986",
-            "creditor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ВЕНТА. ЛТД\"",
-            "creditor_code": "21947206",
-            "org_name": "Ковпаківський відділ державної виконавчої служби у місті Суми Сумського міжрегіонального управління Міністерства юстиції України",
-            "dvs_code": "40211121"
-          }
-        }
-      ]
+      "recent_events": []
     },
     {
       "match_key": "78551358|creditor|edr_31816235",
