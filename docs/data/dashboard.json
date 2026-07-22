@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-21T06:53:25.325702+00:00",
+  "generated_at": "2026-07-22T08:32:49.456826+00:00",
   "window_days": 14,
   "source": {
-    "rows_scanned": 29988256,
+    "rows_scanned": 30011495,
     "matched_records_total": 214,
     "reader": "unzip -p",
     "is_partial": false,
@@ -13,13 +13,13 @@
     "total": 214,
     "debtors": 42,
     "creditors": 172,
-    "active": 36,
+    "active": 35,
     "completed": 155,
     "stopped": 6,
-    "refused": 17,
+    "refused": 18,
     "other": 0,
     "new_14d": 0,
-    "changed_14d": 0
+    "changed_14d": 1
   },
   "records": [
     {
@@ -385,44 +385,6 @@
       "dvs": {
         "org_name": "Печерський відділ державної виконавчої служби у місті Києві Київського міжрегіонального управління Міністерства юстиції України",
         "dvs_code": "34979022"
-      },
-      "events": [],
-      "recent_events": []
-    },
-    {
-      "match_key": "79733558|debtor|edr_31816235",
-      "vp_ordernum": "79733558",
-      "subject": {
-        "id": "edr_31816235",
-        "type": "company",
-        "name": "ТОВ \"БАДМ\"",
-        "code": "31816235",
-        "role": "debtor"
-      },
-      "state": {
-        "current": "Відкрито",
-        "category": "active"
-      },
-      "dates": {
-        "vp_begin": "09.12.2025 00:00:00",
-        "first_seen": null,
-        "last_changed": null,
-        "last_seen": null
-      },
-      "flags": {
-        "is_new_14d": false,
-        "is_changed_14d": false
-      },
-      "parties": {
-        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
-        "debtor_birthdate": "",
-        "debtor_code": "31816235",
-        "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
-        "creditor_code": "00032767"
-      },
-      "dvs": {
-        "org_name": "Соборний відділ державної виконавчої служби у місті Дніпрі Дніпровського міжрегіонального управління Міністерства юстиції України",
-        "dvs_code": "34984523"
       },
       "events": [],
       "recent_events": []
@@ -7697,6 +7659,178 @@
       },
       "events": [],
       "recent_events": []
+    },
+    {
+      "match_key": "79733558|debtor|edr_31816235",
+      "vp_ordernum": "79733558",
+      "subject": {
+        "id": "edr_31816235",
+        "type": "company",
+        "name": "ТОВ \"БАДМ\"",
+        "code": "31816235",
+        "role": "debtor"
+      },
+      "state": {
+        "current": "Вімовлено у відкритті",
+        "category": "refused"
+      },
+      "dates": {
+        "vp_begin": "",
+        "first_seen": "2026-07-22T08:32:49.456826+00:00",
+        "last_changed": "2026-07-22T08:32:49.456826+00:00",
+        "last_seen": null
+      },
+      "flags": {
+        "is_new_14d": false,
+        "is_changed_14d": true
+      },
+      "parties": {
+        "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+        "debtor_birthdate": "",
+        "debtor_code": "31816235",
+        "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+        "creditor_code": "00032767"
+      },
+      "dvs": {
+        "org_name": "Соборний відділ державної виконавчої служби у місті Дніпрі Дніпровського міжрегіонального управління Міністерства юстиції України",
+        "dvs_code": "34984523"
+      },
+      "events": [
+        {
+          "event_id": "5316ef1f723f1136fff1381e1c15bf901852e701",
+          "event_type": "state_changed",
+          "detected_at": "2026-07-22T08:32:49.456826+00:00",
+          "match_key": "79733558|debtor|edr_31816235",
+          "vp_ordernum": "79733558",
+          "subject_id": "edr_31816235",
+          "subject_name": "ТОВ \"БАДМ\"",
+          "subject_code": "31816235",
+          "role": "debtor",
+          "old_state": "Відкрито",
+          "new_state": "Вімовлено у відкритті",
+          "record": {
+            "match_key": "79733558|debtor|edr_31816235",
+            "subject_id": "edr_31816235",
+            "subject_type": "company",
+            "subject_name": "ТОВ \"БАДМ\"",
+            "subject_code": "31816235",
+            "role": "debtor",
+            "vp_ordernum": "79733558",
+            "vp_begindate": "",
+            "vp_state": "Вімовлено у відкритті",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+            "debtor_birthdate": "",
+            "debtor_code": "31816235",
+            "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+            "creditor_code": "00032767",
+            "org_name": "Соборний відділ державної виконавчої служби у місті Дніпрі Дніпровського міжрегіонального управління Міністерства юстиції України",
+            "dvs_code": "34984523"
+          }
+        },
+        {
+          "event_id": "aad048fd062a7e43128e4538cf9b40896bf1cf4d",
+          "event_type": "details_changed",
+          "detected_at": "2026-07-22T08:32:49.456826+00:00",
+          "match_key": "79733558|debtor|edr_31816235",
+          "vp_ordernum": "79733558",
+          "subject_id": "edr_31816235",
+          "subject_name": "ТОВ \"БАДМ\"",
+          "subject_code": "31816235",
+          "role": "debtor",
+          "changes": {
+            "vp_begindate": {
+              "old": "09.12.2025 00:00:00",
+              "new": ""
+            }
+          },
+          "record": {
+            "match_key": "79733558|debtor|edr_31816235",
+            "subject_id": "edr_31816235",
+            "subject_type": "company",
+            "subject_name": "ТОВ \"БАДМ\"",
+            "subject_code": "31816235",
+            "role": "debtor",
+            "vp_ordernum": "79733558",
+            "vp_begindate": "",
+            "vp_state": "Вімовлено у відкритті",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+            "debtor_birthdate": "",
+            "debtor_code": "31816235",
+            "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+            "creditor_code": "00032767",
+            "org_name": "Соборний відділ державної виконавчої служби у місті Дніпрі Дніпровського міжрегіонального управління Міністерства юстиції України",
+            "dvs_code": "34984523"
+          }
+        }
+      ],
+      "recent_events": [
+        {
+          "event_id": "5316ef1f723f1136fff1381e1c15bf901852e701",
+          "event_type": "state_changed",
+          "detected_at": "2026-07-22T08:32:49.456826+00:00",
+          "match_key": "79733558|debtor|edr_31816235",
+          "vp_ordernum": "79733558",
+          "subject_id": "edr_31816235",
+          "subject_name": "ТОВ \"БАДМ\"",
+          "subject_code": "31816235",
+          "role": "debtor",
+          "old_state": "Відкрито",
+          "new_state": "Вімовлено у відкритті",
+          "record": {
+            "match_key": "79733558|debtor|edr_31816235",
+            "subject_id": "edr_31816235",
+            "subject_type": "company",
+            "subject_name": "ТОВ \"БАДМ\"",
+            "subject_code": "31816235",
+            "role": "debtor",
+            "vp_ordernum": "79733558",
+            "vp_begindate": "",
+            "vp_state": "Вімовлено у відкритті",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+            "debtor_birthdate": "",
+            "debtor_code": "31816235",
+            "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+            "creditor_code": "00032767",
+            "org_name": "Соборний відділ державної виконавчої служби у місті Дніпрі Дніпровського міжрегіонального управління Міністерства юстиції України",
+            "dvs_code": "34984523"
+          }
+        },
+        {
+          "event_id": "aad048fd062a7e43128e4538cf9b40896bf1cf4d",
+          "event_type": "details_changed",
+          "detected_at": "2026-07-22T08:32:49.456826+00:00",
+          "match_key": "79733558|debtor|edr_31816235",
+          "vp_ordernum": "79733558",
+          "subject_id": "edr_31816235",
+          "subject_name": "ТОВ \"БАДМ\"",
+          "subject_code": "31816235",
+          "role": "debtor",
+          "changes": {
+            "vp_begindate": {
+              "old": "09.12.2025 00:00:00",
+              "new": ""
+            }
+          },
+          "record": {
+            "match_key": "79733558|debtor|edr_31816235",
+            "subject_id": "edr_31816235",
+            "subject_type": "company",
+            "subject_name": "ТОВ \"БАДМ\"",
+            "subject_code": "31816235",
+            "role": "debtor",
+            "vp_ordernum": "79733558",
+            "vp_begindate": "",
+            "vp_state": "Вімовлено у відкритті",
+            "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
+            "debtor_birthdate": "",
+            "debtor_code": "31816235",
+            "creditor_name": "АНТИМОНОПОЛЬНИЙ КОМІТЕТ УКРАЇНИ",
+            "creditor_code": "00032767",
+            "org_name": "Соборний відділ державної виконавчої служби у місті Дніпрі Дніпровського міжрегіонального управління Міністерства юстиції України",
+            "dvs_code": "34984523"
+          }
+        }
+      ]
     },
     {
       "match_key": "76813430|creditor|edr_31816235",
