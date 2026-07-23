@@ -1,15 +1,19 @@
 {
-  "generated_at": "2026-07-21T06:53:25.325702+00:00",
-  "source_name": "data.gov.ua",
-  "source_url": "https://data.gov.ua/dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip",
+  "generated_at": "2026-07-22T08:32:49.456826+00:00",
+  "source_name": "nais.gov.ua",
+  "source_url": "https://nais.gov.ua/files/general/2026/07/21/20260721094205-54.zip",
   "source_info": {
-    "source_name": "data.gov.ua",
-    "source_url": "https://data.gov.ua/dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip",
-    "download_size_mb": 3080.9
+    "source_name": "nais.gov.ua",
+    "source_url": "https://nais.gov.ua/files/general/2026/07/21/20260721094205-54.zip",
+    "download_size_mb": 3084.6,
+    "fallback_after": "data.gov.ua",
+    "download_errors": [
+      "data.gov.ua failed: HTTPSConnectionPool(host='data.gov.ua', port=443): Max retries exceeded with url: /dataset/22aef563-3e87-4ed9-92e8-d764dc02f426/resource/d1a38c08-0f3a-4687-866f-f28f50df7c46/download/30-ex_csv_asvp.zip (Caused by NewConnectionError(\"HTTPSConnection(host='data.gov.ua', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))"
+    ]
   },
   "csv_file_name": "28-ex_csv_asvp.csv",
   "reader": "unzip -p",
-  "rows_scanned": 29988256,
+  "rows_scanned": 30011495,
   "matched_records_total": 214,
   "is_partial": false,
   "warnings": [],
@@ -3856,8 +3860,8 @@
       "subject_code": "31816235",
       "role": "debtor",
       "vp_ordernum": "79733558",
-      "vp_begindate": "09.12.2025 00:00:00",
-      "vp_state": "Відкрито",
+      "vp_begindate": "",
+      "vp_state": "Вімовлено у відкритті",
       "debtor_name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"БАДМ\"",
       "debtor_birthdate": "",
       "debtor_code": "31816235",
