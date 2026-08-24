@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-23T05:09:55.908876+00:00",
+  "generated_at": "2026-08-24T05:20:33.719049+00:00",
   "window_days": 14,
   "source": {
     "rows_scanned": 30257340,
