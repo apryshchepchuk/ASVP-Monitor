@@ -2,8 +2,6 @@ name: ASVP Daily Monitor
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "30 4 * * *"
 
 permissions:
   contents: write
